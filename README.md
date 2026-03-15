@@ -88,5 +88,8 @@ Start with:
 - `docs/NC-FORMAL-SCHEMA-v1.2.md`
 - `docs/NaturalControl_Formal_Terminology_zh_en.md`
 - `docs/AGI_Nutshell_Legacy_Inventory.md`
+- `docs/MIGRATION_FROM_AGI_NUTSHELL.md`
+- `docs/ISSUES_AND_ROADMAP.md`
 - `docs/SCHEMA.md`
 - `docs/GOVERNANCE.md`
+- `CONTRIBUTING.md`
