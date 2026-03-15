@@ -229,3 +229,44 @@ Examples:
 示例：
 - 契约词汇：`action target`、`cluster`、`zone map`
 - 内部词汇：`patch`、`warhead`、`quilt`、`orbital`
+
+
+### `lifecycle line` / `生命周期线`
+
+What it means:
+- The reporting-side contract line for admission, in-flight progress, and terminal state.
+- It is separate from interaction request/frame/trace.
+
+解释：
+- 表示受理、执行过程和终态结果的报告契约线。
+- 它与交互侧的 request/frame/trace 分开。
+
+### `execution_id` / `执行标识`
+
+What it means:
+- The identifier of one concrete execution attempt.
+- It is not the same thing as `request_id`.
+
+解释：
+- 一次具体执行尝试的标识。
+- 它不等于 `request_id`。
+
+### `stage` / `阶段`
+
+What it means:
+- A coarse-grained runtime phase in the lifecycle/reporting line.
+- Example values: `planning`, `executing`, `settling`.
+
+解释：
+- 生命周期/报告线中的粗粒度运行阶段。
+- 例如：`planning`、`executing`、`settling`。
+
+### `terminal state` / `终态`
+
+What it means:
+- The final reporting state of an execution attempt.
+- Example values: `succeeded`, `failed`, `aborted`.
+
+解释：
+- 一次执行尝试最终的报告状态。
+- 例如：`succeeded`、`failed`、`aborted`。

@@ -1,37 +1,56 @@
 spec_version: 1.0
 repository: meeting-room
 line: nc-first
-
 domains:
-  - name: nc
-    owner: nc-core
-    topics:
-      - name: naturalcontrol.interaction_request.v1.2
-        status: draft
-        partition_key: request_id
-        idempotency_key: request_id
-        trace_id: interaction_id
-        throughput_eps: 15
-        retention_days: 7
-      - name: naturalcontrol.interaction_frame.v1.2
-        status: draft
-        partition_key: stream_id
-        idempotency_key: frame_seq
-        trace_id: request_id
-        throughput_eps: 120
-        retention_days: 7
-      - name: naturalcontrol.interaction_trace_pack.v1.2
-        status: draft
-        partition_key: trace_id
-        idempotency_key: trace_id
-        trace_id: request_id
-        throughput_eps: 15
-        retention_days: 14
-
+- name: nc
+  owner: nc-core
+  topics:
+  - name: naturalcontrol.interaction_request.v1.2
+    status: draft
+    partition_key: request_id
+    idempotency_key: request_id
+    trace_id: interaction_id
+    throughput_eps: 15
+    retention_days: 7
+  - name: naturalcontrol.interaction_frame.v1.2
+    status: draft
+    partition_key: stream_id
+    idempotency_key: frame_seq
+    trace_id: request_id
+    throughput_eps: 120
+    retention_days: 7
+  - name: naturalcontrol.interaction_trace_pack.v1.2
+    status: draft
+    partition_key: trace_id
+    idempotency_key: trace_id
+    trace_id: request_id
+    throughput_eps: 15
+    retention_days: 14
+  - name: naturalcontrol.lifecycle_ack.v1
+    status: draft
+    partition_key: request_id
+    idempotency_key: execution_id
+    trace_id: interaction_id
+    throughput_eps: 30
+    retention_days: 7
+  - name: naturalcontrol.lifecycle_progress.v1
+    status: draft
+    partition_key: execution_id
+    idempotency_key: epoch_ns
+    trace_id: interaction_id
+    throughput_eps: 120
+    retention_days: 7
+  - name: naturalcontrol.lifecycle_result.v1
+    status: draft
+    partition_key: execution_id
+    idempotency_key: execution_id
+    trace_id: interaction_id
+    throughput_eps: 30
+    retention_days: 14
 future_domains:
-  - name: np
-    status: reserved
-  - name: ps
-    status: reserved
-  - name: ts
-    status: reserved
+- name: np
+  status: reserved
+- name: ps
+  status: reserved
+- name: ts
+  status: reserved

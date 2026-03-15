@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.lifecycle_ack.v1.schema.json",
+  "title": "NaturalControl Lifecycle Ack v1",
+  "description": "Lifecycle/reporting line for request admission and execution start. This line is separate from the interaction baseline and does not redefine request/frame/trace semantics.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "request_id",
+    "interaction_id",
+    "state"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.lifecycle_ack.v1"
+    },
+    "spec_version": {
+      "const": "1.0"
+    },
+    "epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "interaction_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "execution_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "received",
+        "accepted",
+        "started"
+      ]
+    },
+    "queue_position": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "message": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+    },
+    "meta": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "started"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "execution_id"
+        ]
+      }
+    }
+  ],
+  "additionalProperties": false
+}

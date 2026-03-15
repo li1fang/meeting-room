@@ -1,0 +1,17 @@
+{
+  "suite": "L0:naturalcontrol.lifecycle_progress.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.lifecycle_progress.v1:shape-ok",
+      "given": "samples/naturalcontrol.lifecycle_progress.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.lifecycle_progress.v1'",
+        "$.spec_version == '1.0'",
+        "$.execution_id != ''",
+        "$.stage == 'executing'",
+        "$.status == 'running'",
+        "$.progress_ratio != ''"
+      ]
+    }
+  ]
+}

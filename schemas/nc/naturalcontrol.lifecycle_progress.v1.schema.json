@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.lifecycle_progress.v1.schema.json",
+  "title": "NaturalControl Lifecycle Progress v1",
+  "description": "Lifecycle/reporting line for in-flight execution progress. This line reports runtime progress without redefining the interaction baseline.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "request_id",
+    "interaction_id",
+    "execution_id",
+    "stage",
+    "status"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.lifecycle_progress.v1"
+    },
+    "spec_version": {
+      "const": "1.0"
+    },
+    "epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "interaction_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "execution_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "trace_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "planning",
+        "executing",
+        "emitting",
+        "settling",
+        "finalizing"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "blocked",
+        "retrying",
+        "degraded"
+      ]
+    },
+    "progress_ratio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "message": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+    },
+    "meta": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+    }
+  },
+  "additionalProperties": false
+}

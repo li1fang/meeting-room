@@ -1,0 +1,17 @@
+{
+  "suite": "L0:naturalcontrol.lifecycle_ack.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.lifecycle_ack.v1:shape-ok",
+      "given": "samples/naturalcontrol.lifecycle_ack.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.lifecycle_ack.v1'",
+        "$.spec_version == '1.0'",
+        "$.request_id != ''",
+        "$.interaction_id != ''",
+        "$.state == 'started'",
+        "$.execution_id != ''"
+      ]
+    }
+  ]
+}

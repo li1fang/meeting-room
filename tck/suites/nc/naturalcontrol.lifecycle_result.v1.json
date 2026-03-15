@@ -1,0 +1,17 @@
+{
+  "suite": "L0:naturalcontrol.lifecycle_result.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.lifecycle_result.v1:shape-ok",
+      "given": "samples/naturalcontrol.lifecycle_result.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.lifecycle_result.v1'",
+        "$.spec_version == '1.0'",
+        "$.execution_id != ''",
+        "$.terminal_state == 'succeeded'",
+        "$.trace_id != ''",
+        "$.artifacts.trace_pack_ref != ''"
+      ]
+    }
+  ]
+}

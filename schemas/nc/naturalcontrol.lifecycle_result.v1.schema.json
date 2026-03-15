@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.lifecycle_result.v1.schema.json",
+  "title": "NaturalControl Lifecycle Result v1",
+  "description": "Lifecycle/reporting line for terminal execution state. This line closes execution reporting while keeping interaction semantics in the request/frame/trace contracts.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "request_id",
+    "interaction_id",
+    "execution_id",
+    "terminal_state"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.lifecycle_result.v1"
+    },
+    "spec_version": {
+      "const": "1.0"
+    },
+    "epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "interaction_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "execution_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "trace_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "terminal_state": {
+      "type": "string",
+      "enum": [
+        "succeeded",
+        "failed",
+        "aborted"
+      ]
+    },
+    "summary": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+    },
+    "error": {
+      "type": "object",
+      "required": [
+        "code",
+        "reason"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        },
+        "reason": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "object",
+      "properties": {
+        "trace_pack_ref": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        },
+        "report_ref": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "meta": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "terminal_state": {
+            "const": "failed"
+          }
+        },
+        "required": [
+          "terminal_state"
+        ]
+      },
+      "then": {
+        "required": [
+          "error"
+        ]
+      }
+    }
+  ],
+  "additionalProperties": false
+}

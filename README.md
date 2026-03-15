@@ -5,9 +5,8 @@ Natural Control formal contracts repository.
 This repository is the new NC-first contract source of truth.
 It starts with the NC `v1.2` formal draft line and keeps the scope intentionally narrow:
 
-- request
-- frame
-- trace pack
+- interaction request / frame / trace pack
+- lifecycle / reporting line
 - supporting governance, registry, terminology, samples, and TCK
 
 It does **not** treat legacy AGI-Nutshell NCv3 as the main line.
@@ -21,6 +20,9 @@ Current formal line:
 - `naturalcontrol.interaction_frame.v1.2`
 - `naturalcontrol.interaction_trace_pack.v1.2`
 - `naturalcontrol.common.v1.2`
+- `naturalcontrol.lifecycle_ack.v1`
+- `naturalcontrol.lifecycle_progress.v1`
+- `naturalcontrol.lifecycle_result.v1`
 
 Current scope is **2D interaction baseline** only.
 Out of scope for this first repository version:
@@ -86,6 +88,8 @@ This executes:
 Start with:
 
 - `docs/NC-FORMAL-SCHEMA-v1.2.md`
+- `docs/NC-LIFECYCLE-REPORTING-v1.md`
+- `docs/ROADMAP_STATUS.md`
 - `docs/NaturalControl_Formal_Terminology_zh_en.md`
 - `docs/AGI_Nutshell_Legacy_Inventory.md`
 - `docs/MIGRATION_FROM_AGI_NUTSHELL.md`

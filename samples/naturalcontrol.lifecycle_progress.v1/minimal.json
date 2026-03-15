@@ -1,0 +1,13 @@
+{
+  "schema_id": "naturalcontrol.lifecycle_progress.v1",
+  "spec_version": "1.0",
+  "epoch_ns": "1742010000012000000",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-press-release-001",
+  "execution_id": "exec-001",
+  "trace_id": "trace-001",
+  "stage": "executing",
+  "status": "running",
+  "progress_ratio": 0.42,
+  "message": "cursor is approaching target"
+}

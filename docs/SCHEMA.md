@@ -48,3 +48,12 @@ Canonical sample files:
 - `samples/naturalcontrol.interaction_request.v1.2/minimal.json`
 - `samples/naturalcontrol.interaction_frame.v1.2/minimal.json`
 - `samples/naturalcontrol.interaction_trace_pack.v1.2/minimal.json`
+
+
+## Current lifecycle/reporting line
+
+Canonical lifecycle/reporting schemas:
+
+- `schemas/nc/naturalcontrol.lifecycle_ack.v1.schema.json`
+- `schemas/nc/naturalcontrol.lifecycle_progress.v1.schema.json`
+- `schemas/nc/naturalcontrol.lifecycle_result.v1.schema.json`

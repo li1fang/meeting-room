@@ -45,3 +45,14 @@ A topic is not considered landed unless all of the following exist and pass:
 - TCK suite passes
 - registry entry exists
 - docs are consistent with the actual schema line
+
+
+## Current lifecycle/reporting line
+
+The repository now carries a separate lifecycle/reporting line:
+
+- `naturalcontrol.lifecycle_ack.v1`
+- `naturalcontrol.lifecycle_progress.v1`
+- `naturalcontrol.lifecycle_result.v1`
+
+These topics are separate from the interaction baseline and must not be used to redefine request/frame/trace semantics.
