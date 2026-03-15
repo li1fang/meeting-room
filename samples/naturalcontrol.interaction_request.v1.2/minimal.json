@@ -1,0 +1,129 @@
+{
+  "schema_id": "naturalcontrol.interaction_request.v1.2",
+  "spec_version": "1.2",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-blueclicker-001",
+  "epoch_ns": "1742010000000000000",
+  "coordinate_space": {
+    "space_kind": "viewport_px",
+    "viewport_w": 1920,
+    "viewport_h": 1080,
+    "dpr": 1
+  },
+  "start_state": {
+    "epoch_ns": "1742010000000000000",
+    "position": {
+      "x": 460,
+      "y": 260
+    },
+    "velocity": {
+      "x": 0,
+      "y": 0
+    },
+    "acceleration": {
+      "x": 0,
+      "y": 0
+    },
+    "confidence": 1
+  },
+  "action_targets": [
+    {
+      "target_id": "target-press-001",
+      "sequence_index": 0,
+      "event_kind": "press",
+      "bbox": {
+        "x": 760,
+        "y": 180,
+        "w": 64,
+        "h": 64
+      },
+      "time_window": {
+        "basis": "relative_to_request_epoch_ns",
+        "open_rel_ns": "0",
+        "close_rel_ns": "1200000000"
+      },
+      "spatial_tolerance": 8,
+      "risk_level": "medium",
+      "priority": 10,
+      "confidence": 0.98,
+      "cluster_hint_refs": [
+        "cluster-hint-001"
+      ]
+    },
+    {
+      "target_id": "target-release-001",
+      "sequence_index": 1,
+      "event_kind": "release",
+      "bbox": {
+        "x": 760,
+        "y": 180,
+        "w": 64,
+        "h": 64
+      },
+      "time_window": {
+        "basis": "relative_to_request_epoch_ns",
+        "open_rel_ns": "20000000",
+        "close_rel_ns": "1300000000"
+      },
+      "spatial_tolerance": 8,
+      "priority": 10,
+      "confidence": 0.98,
+      "cluster_hint_refs": [
+        "cluster-hint-001"
+      ]
+    }
+  ],
+  "zone_map": {
+    "availability": "known",
+    "policy_level": "A1",
+    "overlap_resolution": "forbidden>target>safe_miss>reversible_miss",
+    "zones": [
+      {
+        "zone_id": "zone-target-press-001",
+        "kind": "target",
+        "bbox": {
+          "x": 760,
+          "y": 180,
+          "w": 64,
+          "h": 64
+        },
+        "target_ref": "target-press-001"
+      },
+      {
+        "zone_id": "zone-target-release-001",
+        "kind": "target",
+        "bbox": {
+          "x": 760,
+          "y": 180,
+          "w": 64,
+          "h": 64
+        },
+        "target_ref": "target-release-001"
+      },
+      {
+        "zone_id": "zone-safe-miss-001",
+        "kind": "safe_miss",
+        "bbox": {
+          "x": 720,
+          "y": 140,
+          "w": 144,
+          "h": 144
+        },
+        "priority": 1,
+        "notes": "Soft miss zone around the click target."
+      }
+    ]
+  },
+  "cluster_hints": [
+    {
+      "cluster_hint_id": "cluster-hint-001",
+      "sequence_index": 0,
+      "action_target_refs": [
+        "target-press-001",
+        "target-release-001"
+      ],
+      "pause_threshold_ns": "5000000",
+      "notes": "Single click cluster hint."
+    }
+  ]
+}

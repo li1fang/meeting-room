@@ -1,0 +1,17 @@
+{
+  "suite": "L0:naturalcontrol.interaction_request.v1.2:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.interaction_request.v1.2:shape-ok",
+      "given": "samples/naturalcontrol.interaction_request.v1.2/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.interaction_request.v1.2'",
+        "$.spec_version == '1.2'",
+        "$.request_id != ''",
+        "$.epoch_ns != ''",
+        "$.action_targets[0].bbox.w",
+        "$.zone_map.availability == 'known'"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "schema_id": "naturalcontrol.interaction_frame.v1.2",
+  "spec_version": "1.2",
+  "stream_id": "stream-click-001",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-blueclicker-001",
+  "frame_seq": 42,
+  "epoch_ns": "1742010000336000000",
+  "t_rel_ns": "336000000",
+  "dt_ns": "8000000",
+  "coordinate_space": {
+    "space_kind": "viewport_px",
+    "viewport_w": 1920,
+    "viewport_h": 1080,
+    "dpr": 1
+  },
+  "cursor_state": {
+    "tracking_state": "ready",
+    "position": {
+      "x": 748,
+      "y": 191
+    },
+    "confidence": 0.99,
+    "velocity": {
+      "x": 640,
+      "y": -120
+    }
+  },
+  "action_targets": [
+    {
+      "target_id": "target-press-001",
+      "sequence_index": 0,
+      "event_kind": "press",
+      "bbox": {
+        "x": 760,
+        "y": 180,
+        "w": 64,
+        "h": 64
+      },
+      "status": "active",
+      "cluster_hint_refs": [
+        "cluster-hint-001"
+      ],
+      "confidence": 0.99
+    },
+    {
+      "target_id": "target-release-001",
+      "sequence_index": 1,
+      "event_kind": "release",
+      "bbox": {
+        "x": 760,
+        "y": 180,
+        "w": 64,
+        "h": 64
+      },
+      "status": "pending",
+      "cluster_hint_refs": [
+        "cluster-hint-001"
+      ],
+      "confidence": 0.99
+    }
+  ],
+  "zone_map_snapshot": {
+    "availability": "known",
+    "policy_level": "A1",
+    "overlap_resolution": "forbidden>target>safe_miss>reversible_miss",
+    "zones": [
+      {
+        "zone_id": "zone-target-press-001",
+        "kind": "target",
+        "bbox": {
+          "x": 760,
+          "y": 180,
+          "w": 64,
+          "h": 64
+        },
+        "target_ref": "target-press-001"
+      }
+    ]
+  },
+  "active_cluster_hint_refs": [
+    "cluster-hint-001"
+  ],
+  "stream_terminal": {
+    "state": "open"
+  }
+}

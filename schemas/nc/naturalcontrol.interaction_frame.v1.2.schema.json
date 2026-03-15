@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.interaction_frame.v1.2.schema.json",
+  "title": "NaturalControl Interaction Frame v1.2",
+  "description": "Streaming frame contract for online alignment. v1.2 strengthens state-dependent constraints, uses plural active cluster-hint references, and keeps empty action-target arrays legal for lost or attach/teardown windows.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "stream_id",
+    "frame_seq",
+    "epoch_ns",
+    "t_rel_ns",
+    "dt_ns",
+    "coordinate_space",
+    "cursor_state",
+    "action_targets"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.interaction_frame.v1.2"
+    },
+    "schema": {
+      "description": "Deprecated alias for schema_id.",
+      "const": "naturalcontrol.interaction_frame.v1.2",
+      "deprecated": true
+    },
+    "spec_version": {
+      "const": "1.2"
+    },
+    "stream_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "interaction_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "frame_seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "t_rel_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "dt_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "coordinate_space": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/coordinateSpace"
+    },
+    "cursor_state": {
+      "$ref": "#/$defs/cursorState"
+    },
+    "action_targets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/actionTargetSnapshot"
+      },
+      "description": "Snapshot array order is non-normative; consumers should sort by sequence_index. Empty arrays are legal when a frame is still audit-useful but has no valid target snapshot."
+    },
+    "zone_map_snapshot": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/zoneMap"
+    },
+    "active_cluster_hint_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+      }
+    },
+    "stream_terminal": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/streamTerminal"
+    },
+    "meta": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+    }
+  },
+  "$defs": {
+    "cursorState": {
+      "type": "object",
+      "required": [
+        "tracking_state"
+      ],
+      "properties": {
+        "tracking_state": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/trackingState"
+        },
+        "position": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "confidence": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability"
+        },
+        "velocity": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "lost_reason": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "tracking_state": {
+                "const": "ready"
+              }
+            },
+            "required": [
+              "tracking_state"
+            ]
+          },
+          "then": {
+            "required": [
+              "position",
+              "confidence"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "tracking_state": {
+                "enum": [
+                  "cursor_lost",
+                  "target_lost",
+                  "both_lost"
+                ]
+              }
+            },
+            "required": [
+              "tracking_state"
+            ]
+          },
+          "then": {
+            "required": [
+              "lost_reason"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "actionTargetSnapshot": {
+      "type": "object",
+      "required": [
+        "target_id",
+        "sequence_index",
+        "event_kind",
+        "bbox",
+        "status",
+        "confidence"
+      ],
+      "properties": {
+        "target_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "sequence_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "event_kind": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/actionEventKind"
+        },
+        "bbox": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/bbox"
+        },
+        "status": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/targetStatus"
+        },
+        "cluster_hint_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+          }
+        },
+        "confidence": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability"
+        },
+        "kinematics": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/kinematics"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "TCK/business rules should additionally enforce: unique target_id and sequence_index values within action_targets; frame_seq monotonicity within a stream; and any active_cluster_hint_refs/cluster_hint_refs resolving against the request."
+}

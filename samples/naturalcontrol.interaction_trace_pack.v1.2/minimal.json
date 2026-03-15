@@ -1,0 +1,350 @@
+{
+  "schema_id": "naturalcontrol.interaction_trace_pack.v1.2",
+  "spec_version": "1.2",
+  "trace_id": "trace-click-001",
+  "request_id": "req-click-001",
+  "request_snapshot": {
+    "schema_id": "naturalcontrol.interaction_request.v1.2",
+    "spec_version": "1.2",
+    "request_id": "req-click-001",
+    "interaction_id": "interaction-blueclicker-001",
+    "epoch_ns": "1742010000000000000",
+    "coordinate_space": {
+      "space_kind": "viewport_px",
+      "viewport_w": 1920,
+      "viewport_h": 1080,
+      "dpr": 1
+    },
+    "start_state": {
+      "epoch_ns": "1742010000000000000",
+      "position": {
+        "x": 460,
+        "y": 260
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "acceleration": {
+        "x": 0,
+        "y": 0
+      },
+      "confidence": 1
+    },
+    "action_targets": [
+      {
+        "target_id": "target-press-001",
+        "sequence_index": 0,
+        "event_kind": "press",
+        "bbox": {
+          "x": 760,
+          "y": 180,
+          "w": 64,
+          "h": 64
+        },
+        "time_window": {
+          "basis": "relative_to_request_epoch_ns",
+          "open_rel_ns": "0",
+          "close_rel_ns": "1200000000"
+        },
+        "spatial_tolerance": 8,
+        "risk_level": "medium",
+        "priority": 10,
+        "confidence": 0.98,
+        "cluster_hint_refs": [
+          "cluster-hint-001"
+        ]
+      },
+      {
+        "target_id": "target-release-001",
+        "sequence_index": 1,
+        "event_kind": "release",
+        "bbox": {
+          "x": 760,
+          "y": 180,
+          "w": 64,
+          "h": 64
+        },
+        "time_window": {
+          "basis": "relative_to_request_epoch_ns",
+          "open_rel_ns": "20000000",
+          "close_rel_ns": "1300000000"
+        },
+        "spatial_tolerance": 8,
+        "priority": 10,
+        "confidence": 0.98,
+        "cluster_hint_refs": [
+          "cluster-hint-001"
+        ]
+      }
+    ],
+    "zone_map": {
+      "availability": "known",
+      "policy_level": "A1",
+      "overlap_resolution": "forbidden>target>safe_miss>reversible_miss",
+      "zones": [
+        {
+          "zone_id": "zone-target-press-001",
+          "kind": "target",
+          "bbox": {
+            "x": 760,
+            "y": 180,
+            "w": 64,
+            "h": 64
+          },
+          "target_ref": "target-press-001"
+        },
+        {
+          "zone_id": "zone-target-release-001",
+          "kind": "target",
+          "bbox": {
+            "x": 760,
+            "y": 180,
+            "w": 64,
+            "h": 64
+          },
+          "target_ref": "target-release-001"
+        }
+      ]
+    },
+    "cluster_hints": [
+      {
+        "cluster_hint_id": "cluster-hint-001",
+        "sequence_index": 0,
+        "action_target_refs": [
+          "target-press-001",
+          "target-release-001"
+        ],
+        "pause_threshold_ns": "5000000",
+        "notes": "Single click cluster hint."
+      }
+    ]
+  },
+  "generated_epoch_ns": "1742010000500000000",
+  "coordinate_space": {
+    "space_kind": "viewport_px",
+    "viewport_w": 1920,
+    "viewport_h": 1080,
+    "dpr": 1
+  },
+  "cluster_policy": {
+    "pause_threshold_ns": "5000000",
+    "speed_epsilon_per_s": 12,
+    "close_rule": "event_cluster_with_natural_settle"
+  },
+  "action_targets": [
+    {
+      "target_id": "target-press-001",
+      "sequence_index": 0,
+      "event_kind": "press",
+      "bbox": {
+        "x": 760,
+        "y": 180,
+        "w": 64,
+        "h": 64
+      },
+      "cluster_hint_refs": [
+        "cluster-hint-001"
+      ]
+    },
+    {
+      "target_id": "target-release-001",
+      "sequence_index": 1,
+      "event_kind": "release",
+      "bbox": {
+        "x": 760,
+        "y": 180,
+        "w": 64,
+        "h": 64
+      },
+      "cluster_hint_refs": [
+        "cluster-hint-001"
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "track-cursor-actual-001",
+      "role": "cursor_actual",
+      "samples": [
+        {
+          "sample_seq": 0,
+          "epoch_ns": "1742010000000000000",
+          "t_rel_ns": "0",
+          "dt_ns": "0",
+          "position": {
+            "x": 460,
+            "y": 260
+          },
+          "delta": {
+            "x": 0,
+            "y": 0
+          },
+          "speed_per_s": 0,
+          "phase": "launch",
+          "source_segment": "real"
+        },
+        {
+          "sample_seq": 1,
+          "epoch_ns": "1742010000160000000",
+          "t_rel_ns": "160000000",
+          "dt_ns": "160000000",
+          "position": {
+            "x": 620,
+            "y": 220
+          },
+          "delta": {
+            "x": 160,
+            "y": -40
+          },
+          "speed_per_s": 1030,
+          "phase": "approach",
+          "cluster_id": "cluster-001",
+          "source_segment": "real"
+        },
+        {
+          "sample_seq": 2,
+          "epoch_ns": "1742010000320000000",
+          "t_rel_ns": "320000000",
+          "dt_ns": "160000000",
+          "position": {
+            "x": 772,
+            "y": 202
+          },
+          "delta": {
+            "x": 152,
+            "y": -18
+          },
+          "speed_per_s": 960,
+          "phase": "inside_target",
+          "cluster_id": "cluster-001",
+          "source_segment": "real"
+        },
+        {
+          "sample_seq": 3,
+          "epoch_ns": "1742010000400000000",
+          "t_rel_ns": "400000000",
+          "dt_ns": "80000000",
+          "position": {
+            "x": 772,
+            "y": 202
+          },
+          "delta": {
+            "x": 0,
+            "y": 0
+          },
+          "speed_per_s": 0,
+          "phase": "settled",
+          "cluster_id": "cluster-001",
+          "source_segment": "hold"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt-cluster-start-001",
+      "kind": "cluster_start",
+      "epoch_ns": "1742010000000000000",
+      "t_rel_ns": "0",
+      "cluster_id": "cluster-001"
+    },
+    {
+      "event_id": "evt-press-001",
+      "kind": "press",
+      "epoch_ns": "1742010000320000000",
+      "t_rel_ns": "320000000",
+      "target_ref": "target-press-001"
+    },
+    {
+      "event_id": "evt-release-001",
+      "kind": "release",
+      "epoch_ns": "1742010000330000000",
+      "t_rel_ns": "330000000",
+      "target_ref": "target-release-001"
+    },
+    {
+      "event_id": "evt-cluster-end-001",
+      "kind": "cluster_end",
+      "epoch_ns": "1742010000400000000",
+      "t_rel_ns": "400000000",
+      "cluster_id": "cluster-001"
+    },
+    {
+      "event_id": "evt-done-001",
+      "kind": "done",
+      "epoch_ns": "1742010000401000000",
+      "t_rel_ns": "401000000",
+      "label": "cluster completed"
+    }
+  ],
+  "clusters": [
+    {
+      "cluster_id": "cluster-001",
+      "cluster_hint_refs": [
+        "cluster-hint-001"
+      ],
+      "sequence_index": 0,
+      "start_epoch_ns": "1742010000000000000",
+      "end_epoch_ns": "1742010000400000000",
+      "start_rel_ns": "0",
+      "end_rel_ns": "400000000",
+      "start_sample_seq": 0,
+      "end_sample_seq": 3,
+      "terminal_speed_per_s": 0,
+      "target_refs": [
+        "target-press-001",
+        "target-release-001"
+      ],
+      "event_refs": [
+        "evt-cluster-start-001",
+        "evt-press-001",
+        "evt-release-001",
+        "evt-cluster-end-001"
+      ],
+      "close_reason": "natural_settle"
+    }
+  ],
+  "zone_map": {
+    "availability": "known",
+    "policy_level": "A1",
+    "overlap_resolution": "forbidden>target>safe_miss>reversible_miss",
+    "zones": [
+      {
+        "zone_id": "zone-target-press-001",
+        "kind": "target",
+        "bbox": {
+          "x": 760,
+          "y": 180,
+          "w": 64,
+          "h": 64
+        },
+        "target_ref": "target-press-001"
+      },
+      {
+        "zone_id": "zone-target-release-001",
+        "kind": "target",
+        "bbox": {
+          "x": 760,
+          "y": 180,
+          "w": 64,
+          "h": 64
+        },
+        "target_ref": "target-release-001"
+      }
+    ]
+  },
+  "zone_decisions": [
+    {
+      "decision_id": "zone-decision-001",
+      "epoch_ns": "1742010000320000000",
+      "t_rel_ns": "320000000",
+      "zone_id": "zone-target-press-001",
+      "zone_kind": "target",
+      "decision": "selected",
+      "target_ref": "target-press-001",
+      "cluster_id": "cluster-001",
+      "notes": "Press was emitted inside the target zone."
+    }
+  ]
+}

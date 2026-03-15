@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.interaction_request.v1.2.schema.json",
+  "title": "NaturalControl Interaction Request v1.2",
+  "description": "Request-side contract for a planned interaction. v1.2 adds formal payload identity, explicit time-window basis, plural cluster-hint references, and shared common definitions.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "request_id",
+    "epoch_ns",
+    "coordinate_space",
+    "start_state",
+    "action_targets"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.interaction_request.v1.2"
+    },
+    "schema": {
+      "description": "Deprecated alias for schema_id.",
+      "const": "naturalcontrol.interaction_request.v1.2",
+      "deprecated": true
+    },
+    "spec_version": {
+      "const": "1.2"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "interaction_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue",
+      "description": "Request creation time in Unix epoch nanoseconds."
+    },
+    "coordinate_space": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/coordinateSpace"
+    },
+    "start_state": {
+      "$ref": "#/$defs/startState"
+    },
+    "action_targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/actionTarget"
+      },
+      "description": "Array order is non-normative; consumers should sort by sequence_index."
+    },
+    "zone_map": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/zoneMap"
+    },
+    "cluster_hints": {
+      "type": "array",
+      "items": {
+        "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/clusterHint"
+      },
+      "description": "Hint array order is non-normative; consumers should sort by sequence_index."
+    },
+    "meta": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+    }
+  },
+  "$defs": {
+    "startState": {
+      "type": "object",
+      "required": [
+        "epoch_ns",
+        "position"
+      ],
+      "properties": {
+        "epoch_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "position": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "velocity": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "acceleration": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "confidence": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability"
+        }
+      },
+      "additionalProperties": false
+    },
+    "actionTarget": {
+      "type": "object",
+      "required": [
+        "target_id",
+        "sequence_index",
+        "event_kind",
+        "bbox"
+      ],
+      "properties": {
+        "target_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "sequence_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "event_kind": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/actionEventKind"
+        },
+        "bbox": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/bbox"
+        },
+        "time_window": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/timeWindow"
+        },
+        "spatial_tolerance": {
+          "description": "Tolerance in the declared coordinate space.",
+          "type": "number",
+          "minimum": 0
+        },
+        "risk_level": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/riskLevel"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "confidence": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability"
+        },
+        "cluster_hint_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+          }
+        },
+        "kinematics": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/kinematics"
+        },
+        "meta": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "TCK/business rules should additionally enforce: unique target_id values; unique sequence_index values; and referential integrity from cluster_hints.action_target_refs and action_targets.cluster_hint_refs to declared objects."
+}

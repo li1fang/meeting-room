@@ -1,0 +1,682 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.common.v1.2.schema.json",
+  "title": "NaturalControl Common Types v1.2",
+  "description": "Shared definitions for NaturalControl interaction request, frame, and trace-pack schemas. v1.2 standardizes payload identity, adds explicit zone-map availability, keeps structured rollback actions, and uses interoperable nanosecond values.",
+  "$defs": {
+    "identifier": {
+      "description": "Opaque application identifier. Cross-object uniqueness is enforced by TCK/business rules.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nsValue": {
+      "description": "Non-negative nanosecond value. Canonical wire form is a decimal string. Integer form is accepted for controlled environments that preserve 64-bit precision.",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)$"
+        }
+      ]
+    },
+    "probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "metaObject": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "vector2": {
+      "type": "object",
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bbox": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "w",
+        "h"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "w": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "h": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "coordinateSpace": {
+      "type": "object",
+      "description": "Declares the coordinate frame used by all geometric values in the containing payload.",
+      "required": [
+        "space_kind"
+      ],
+      "properties": {
+        "space_kind": {
+          "type": "string",
+          "enum": [
+            "screen_px",
+            "viewport_px",
+            "normalized_0_1",
+            "custom"
+          ]
+        },
+        "viewport_w": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "viewport_h": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "dpr": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "origin_x": {
+          "type": "number"
+        },
+        "origin_y": {
+          "type": "number"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "space_kind": {
+                "enum": [
+                  "screen_px",
+                  "viewport_px",
+                  "normalized_0_1"
+                ]
+              }
+            },
+            "required": [
+              "space_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "viewport_w",
+              "viewport_h"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "origin_x"
+            ]
+          },
+          "then": {
+            "required": [
+              "origin_y"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "origin_y"
+            ]
+          },
+          "then": {
+            "required": [
+              "origin_x"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "space_kind": {
+                "const": "custom"
+              }
+            },
+            "required": [
+              "space_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "notes"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "timeWindow": {
+      "type": "object",
+      "description": "Execution time constraint. v1.2 makes the temporal basis explicit to avoid mixing absolute and relative fields.",
+      "required": [
+        "basis"
+      ],
+      "properties": {
+        "basis": {
+          "type": "string",
+          "enum": [
+            "absolute_epoch_ns",
+            "relative_to_request_epoch_ns"
+          ]
+        },
+        "open_epoch_ns": {
+          "$ref": "#/$defs/nsValue"
+        },
+        "close_epoch_ns": {
+          "$ref": "#/$defs/nsValue"
+        },
+        "open_rel_ns": {
+          "$ref": "#/$defs/nsValue"
+        },
+        "close_rel_ns": {
+          "$ref": "#/$defs/nsValue"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "basis": {
+                "const": "absolute_epoch_ns"
+              }
+            },
+            "required": [
+              "basis"
+            ]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "open_epoch_ns"
+                ]
+              },
+              {
+                "required": [
+                  "close_epoch_ns"
+                ]
+              }
+            ],
+            "properties": {
+              "open_rel_ns": false,
+              "close_rel_ns": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "basis": {
+                "const": "relative_to_request_epoch_ns"
+              }
+            },
+            "required": [
+              "basis"
+            ]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "open_rel_ns"
+                ]
+              },
+              {
+                "required": [
+                  "close_rel_ns"
+                ]
+              }
+            ],
+            "properties": {
+              "open_epoch_ns": false,
+              "close_epoch_ns": false
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "actionEventKind": {
+      "type": "string",
+      "enum": [
+        "press",
+        "release",
+        "move",
+        "pause",
+        "custom"
+      ]
+    },
+    "riskLevel": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "targetStatus": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "completed",
+        "expired",
+        "blocked",
+        "unknown"
+      ]
+    },
+    "trackingState": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "cursor_lost",
+        "target_lost",
+        "both_lost",
+        "unknown"
+      ]
+    },
+    "zoneKind": {
+      "type": "string",
+      "enum": [
+        "target",
+        "safe_miss",
+        "reversible_miss",
+        "forbidden"
+      ]
+    },
+    "zoneMapAvailability": {
+      "type": "string",
+      "enum": [
+        "known",
+        "unknown",
+        "not_provided"
+      ]
+    },
+    "policyLevel": {
+      "type": "string",
+      "enum": [
+        "S1",
+        "S2",
+        "A1",
+        "A2",
+        "R1",
+        "R2",
+        "R3",
+        "F"
+      ]
+    },
+    "kinematics": {
+      "type": "object",
+      "required": [
+        "velocity",
+        "acceleration",
+        "confidence"
+      ],
+      "properties": {
+        "epoch_ns": {
+          "$ref": "#/$defs/nsValue"
+        },
+        "velocity": {
+          "$ref": "#/$defs/vector2"
+        },
+        "acceleration": {
+          "$ref": "#/$defs/vector2"
+        },
+        "confidence": {
+          "$ref": "#/$defs/probability"
+        }
+      },
+      "additionalProperties": false
+    },
+    "rollbackAction": {
+      "type": "object",
+      "required": [
+        "action_kind"
+      ],
+      "properties": {
+        "action_kind": {
+          "type": "string",
+          "enum": [
+            "key_chord",
+            "mouse_button",
+            "system_back",
+            "pointer_gesture",
+            "wait"
+          ]
+        },
+        "key": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "modifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "uniqueItems": true
+        },
+        "button": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right",
+            "middle",
+            "back",
+            "forward"
+          ]
+        },
+        "gesture": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "duration_ns": {
+          "$ref": "#/$defs/nsValue"
+        },
+        "repeat": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "delay_after_ns": {
+          "$ref": "#/$defs/nsValue"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "zone": {
+      "type": "object",
+      "required": [
+        "zone_id",
+        "kind",
+        "bbox"
+      ],
+      "properties": {
+        "zone_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "kind": {
+          "$ref": "#/$defs/zoneKind"
+        },
+        "bbox": {
+          "$ref": "#/$defs/bbox"
+        },
+        "target_ref": {
+          "$ref": "#/$defs/identifier"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rollback_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rollbackAction"
+          }
+        },
+        "recovery_target_ref": {
+          "$ref": "#/$defs/identifier"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "target"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "target_ref"
+            ],
+            "properties": {
+              "recovery_target_ref": false,
+              "rollback_actions": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "safe_miss"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_ref": false,
+              "recovery_target_ref": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "reversible_miss"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_ref": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "forbidden"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_ref": false,
+              "recovery_target_ref": false,
+              "rollback_actions": false
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "zoneMap": {
+      "type": "object",
+      "description": "Zone-map envelope. v1.2 allows explicit unknown/not_provided states so trace packs can stay audit-complete without inventing fake zones.",
+      "required": [
+        "availability",
+        "overlap_resolution",
+        "zones"
+      ],
+      "properties": {
+        "availability": {
+          "$ref": "#/$defs/zoneMapAvailability"
+        },
+        "policy_level": {
+          "$ref": "#/$defs/policyLevel"
+        },
+        "hit_slop": {
+          "description": "Tolerance in the declared coordinate space.",
+          "type": "number",
+          "minimum": 0
+        },
+        "min_gap": {
+          "description": "Minimum gap in the declared coordinate space.",
+          "type": "number",
+          "minimum": 0
+        },
+        "overlap_resolution": {
+          "type": "string",
+          "enum": [
+            "forbidden>target>safe_miss>reversible_miss"
+          ]
+        },
+        "zones": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/zone"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "availability": {
+                "const": "known"
+              }
+            },
+            "required": [
+              "availability"
+            ]
+          },
+          "then": {
+            "required": [
+              "policy_level"
+            ],
+            "properties": {
+              "zones": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false,
+      "$comment": "TCK should enforce unique zone_id values within zones. Unknown/not_provided zone maps should use zones=[] rather than synthesizing fake zone entries."
+    },
+    "clusterHint": {
+      "type": "object",
+      "required": [
+        "cluster_hint_id",
+        "sequence_index",
+        "action_target_refs"
+      ],
+      "properties": {
+        "cluster_hint_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "sequence_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "action_target_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "pause_threshold_ns": {
+          "$ref": "#/$defs/nsValue"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "streamTerminal": {
+      "type": "object",
+      "required": [
+        "state"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "open",
+            "done",
+            "abort",
+            "closed"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "abort",
+                  "closed"
+                ]
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

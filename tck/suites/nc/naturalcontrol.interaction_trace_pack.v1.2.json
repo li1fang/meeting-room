@@ -1,0 +1,17 @@
+{
+  "suite": "L0:naturalcontrol.interaction_trace_pack.v1.2:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.interaction_trace_pack.v1.2:shape-ok",
+      "given": "samples/naturalcontrol.interaction_trace_pack.v1.2/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.interaction_trace_pack.v1.2'",
+        "$.spec_version == '1.2'",
+        "$.request_snapshot.schema_id == 'naturalcontrol.interaction_request.v1.2'",
+        "$.cluster_policy.close_rule == 'event_cluster_with_natural_settle'",
+        "$.zone_map.availability == 'known'",
+        "$.tracks[0].samples[0].source_segment != ''"
+      ]
+    }
+  ]
+}

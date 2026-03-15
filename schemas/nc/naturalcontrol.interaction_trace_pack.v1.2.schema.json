@@ -1,0 +1,514 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.interaction_trace_pack.v1.2.schema.json",
+  "title": "NaturalControl Interaction Trace Pack v1.2",
+  "description": "Offline replay/debug/audit package. v1.2 makes the pack self-contained through request_snapshot, requires a zone-map envelope, uses vector-based samples, and preserves plural cluster-hint references.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "trace_id",
+    "request_id",
+    "request_snapshot",
+    "generated_epoch_ns",
+    "coordinate_space",
+    "cluster_policy",
+    "action_targets",
+    "tracks",
+    "events",
+    "clusters",
+    "zone_map"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.interaction_trace_pack.v1.2"
+    },
+    "schema": {
+      "description": "Deprecated alias for schema_id.",
+      "const": "naturalcontrol.interaction_trace_pack.v1.2",
+      "deprecated": true
+    },
+    "spec_version": {
+      "const": "1.2"
+    },
+    "trace_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "request_snapshot": {
+      "$ref": "naturalcontrol.interaction_request.v1.2.schema.json"
+    },
+    "generated_epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "coordinate_space": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/coordinateSpace"
+    },
+    "cluster_policy": {
+      "$ref": "#/$defs/clusterPolicy"
+    },
+    "action_targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/actionTargetRef"
+      },
+      "description": "Denormalized request-side target subset for convenient replay."
+    },
+    "tracks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/track"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cluster"
+      }
+    },
+    "zone_map": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/zoneMap"
+    },
+    "zone_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/zoneDecision"
+      }
+    },
+    "meta": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+    }
+  },
+  "$defs": {
+    "clusterPolicy": {
+      "type": "object",
+      "required": [
+        "pause_threshold_ns",
+        "close_rule"
+      ],
+      "properties": {
+        "pause_threshold_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "speed_epsilon_per_s": {
+          "description": "Terminal speed threshold in the declared coordinate space per second.",
+          "type": "number",
+          "minimum": 0
+        },
+        "close_rule": {
+          "type": "string",
+          "enum": [
+            "event_cluster_with_natural_settle"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "actionTargetRef": {
+      "type": "object",
+      "required": [
+        "target_id",
+        "sequence_index",
+        "event_kind",
+        "bbox"
+      ],
+      "properties": {
+        "target_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "sequence_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "event_kind": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/actionEventKind"
+        },
+        "bbox": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/bbox"
+        },
+        "cluster_hint_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "trackSample": {
+      "type": "object",
+      "required": [
+        "sample_seq",
+        "epoch_ns",
+        "t_rel_ns",
+        "dt_ns",
+        "position",
+        "delta",
+        "source_segment"
+      ],
+      "properties": {
+        "sample_seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "epoch_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "t_rel_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "dt_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "position": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "delta": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "speed_per_s": {
+          "description": "Instantaneous speed in the declared coordinate space per second.",
+          "type": "number",
+          "minimum": 0
+        },
+        "phase": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        },
+        "cluster_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "source_segment": {
+          "type": "string",
+          "enum": [
+            "real",
+            "synthetic",
+            "hold"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "track": {
+      "type": "object",
+      "required": [
+        "track_id",
+        "role",
+        "samples"
+      ],
+      "properties": {
+        "track_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "cursor_actual",
+            "cursor_plan",
+            "reference"
+          ]
+        },
+        "samples": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/trackSample"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "kind",
+        "epoch_ns",
+        "t_rel_ns"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "press",
+            "release",
+            "pause_start",
+            "pause_end",
+            "cluster_start",
+            "cluster_end",
+            "abort",
+            "done"
+          ]
+        },
+        "epoch_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "t_rel_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "target_ref": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "cluster_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "label": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        },
+        "reason": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "press",
+                  "release"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "target_ref"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "cluster_start",
+                  "cluster_end"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "cluster_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "pause_start",
+                  "pause_end"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "target_ref"
+                ]
+              },
+              {
+                "required": [
+                  "cluster_id"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "abort"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "cluster": {
+      "type": "object",
+      "required": [
+        "cluster_id",
+        "sequence_index",
+        "start_epoch_ns",
+        "end_epoch_ns",
+        "start_rel_ns",
+        "end_rel_ns",
+        "target_refs",
+        "close_reason"
+      ],
+      "properties": {
+        "cluster_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "cluster_hint_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+          }
+        },
+        "sequence_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "start_epoch_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "end_epoch_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "start_rel_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "end_rel_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "start_sample_seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_sample_seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "terminal_speed_per_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "target_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+          }
+        },
+        "event_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+          }
+        },
+        "close_reason": {
+          "type": "string",
+          "enum": [
+            "natural_settle",
+            "abort",
+            "external_stop",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "zoneDecision": {
+      "type": "object",
+      "required": [
+        "decision_id",
+        "epoch_ns",
+        "t_rel_ns",
+        "zone_id",
+        "zone_kind",
+        "decision"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "epoch_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "t_rel_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "zone_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "zone_kind": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/zoneKind"
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "entered",
+            "exited",
+            "selected",
+            "blocked",
+            "rollback_started",
+            "rollback_finished"
+          ]
+        },
+        "target_ref": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "cluster_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "notes": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "zone_kind": {
+                "const": "target"
+              }
+            },
+            "required": [
+              "zone_kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "target_ref"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "TCK/business rules should additionally enforce: request_snapshot.request_id == request_id; coordinate_space consistency across request_snapshot and the trace-pack root; referential integrity among target_ref/cluster_id/event_refs/zone_id values; and monotonic ordering for sample_seq/frame times within a track."
+}

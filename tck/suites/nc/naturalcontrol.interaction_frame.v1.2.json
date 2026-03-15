@@ -1,0 +1,17 @@
+{
+  "suite": "L0:naturalcontrol.interaction_frame.v1.2:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.interaction_frame.v1.2:shape-ok",
+      "given": "samples/naturalcontrol.interaction_frame.v1.2/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.interaction_frame.v1.2'",
+        "$.spec_version == '1.2'",
+        "$.frame_seq",
+        "$.t_rel_ns != ''",
+        "$.dt_ns != ''",
+        "$.zone_map_snapshot.availability == 'known'"
+      ]
+    }
+  ]
+}
