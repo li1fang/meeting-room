@@ -3,12 +3,12 @@
 Natural Control formal contracts repository.
 
 This repository is the NC-first contract source of truth.
-It starts from the NC `v1.2` formal baseline and then grows in explicit layers:
+It starts from the NC `v1.2` interaction baseline and grows in explicit lines:
 
 - interaction request / frame / trace pack
 - lifecycle / reporting line
-- estimation layer
-- actuation layer
+- estimation line
+- actuation line
 - supporting governance, registry, terminology, samples, and TCK
 
 It does **not** treat legacy AGI-Nutshell NCv3 as the main line.
@@ -16,7 +16,7 @@ Legacy material is referenced only as input for borrowing or migration analysis.
 
 ## Current scope
 
-Current formal lines:
+Current formal topics in the repository:
 
 - `naturalcontrol.interaction_request.v1.2`
 - `naturalcontrol.interaction_frame.v1.2`
@@ -27,10 +27,25 @@ Current formal lines:
 - `naturalcontrol.lifecycle_result.v1`
 - `naturalcontrol.estimation_observation.v1`
 - `naturalcontrol.estimation_prediction.v1`
+- `naturalcontrol.estimation_observation.v1.1`
+- `naturalcontrol.estimation_prediction.v1.1`
 - `naturalcontrol.actuation_bundle.v1`
+- `naturalcontrol.actuation_bundle.v1.1`
+- `naturalcontrol.actuation_receipt.v1`
 
 Current stable baseline is still **2D interaction**.
-The newer estimation and actuation lines are draft extensions that intentionally stay narrow.
+The richer estimation and actuation lines are draft extensions layered on top of that baseline.
+
+Current recommended draft lines:
+
+- estimation: `naturalcontrol.estimation_observation.v1.1` + `naturalcontrol.estimation_prediction.v1.1`
+- actuation: `naturalcontrol.actuation_bundle.v1.1` + `naturalcontrol.actuation_receipt.v1`
+
+Seed skeleton lines retained for reference:
+
+- `naturalcontrol.estimation_observation.v1`
+- `naturalcontrol.estimation_prediction.v1`
+- `naturalcontrol.actuation_bundle.v1`
 
 Out of scope for the current repository version:
 
@@ -61,7 +76,8 @@ This repository allows direct minor-version naming for formal draft lines.
 Examples:
 
 - `naturalcontrol.interaction_request.v1.2`
-- `naturalcontrol.interaction_frame.v1.2`
+- `naturalcontrol.estimation_observation.v1.1`
+- `naturalcontrol.actuation_bundle.v1.1`
 
 The NC formal lines use native top-level identity:
 
@@ -76,8 +92,8 @@ They do not inherit the old universal event envelope.
 - NC-first: yes
 - Interaction baseline: landed
 - Lifecycle/reporting line: landed
-- Estimation line: landed as draft skeleton
-- Actuation line: landed as draft skeleton
+- Estimation line: `v1` skeleton retained, `v1.1` recommended draft landed
+- Actuation line: `v1` skeleton retained, `v1.1` recommended draft landed
 - NP/PS/TS extension slots: reserved path only
 
 ## Validation
@@ -101,7 +117,10 @@ Start with:
 - `docs/NC-FORMAL-SCHEMA-v1.2.md`
 - `docs/NC-LIFECYCLE-REPORTING-v1.md`
 - `docs/NC-ESTIMATION-LAYER-v1.md`
+- `docs/NC-ESTIMATION-LAYER-v1.1.md`
+- `docs/NC-BODY-KEYPOINT-CATALOG-v1.md`
 - `docs/NC-ACTUATION-LAYER-v1.md`
+- `docs/NC-ACTUATION-LAYER-v1.1.md`
 - `docs/FUTURE_DOMAIN_EXPANSION_RULES.md`
 - `docs/ROADMAP_STATUS.md`
 - `docs/NaturalControl_Formal_Terminology_zh_en.md`

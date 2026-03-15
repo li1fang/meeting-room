@@ -8,7 +8,7 @@ It freezes the Natural Control formal lines before broader multi-domain expansio
 ## Naming and versioning
 
 - Direct minor-version naming is allowed.
-- Formal draft lines may use names such as `*.v1.2` directly.
+- Formal draft lines may use names such as `*.v1.2` or `*.v1.1` directly.
 - Breaking changes still require a new topic name.
 - Stable and draft lines may coexist.
 
@@ -36,6 +36,22 @@ They may additionally carry line-specific identifiers, but they do not inherit a
 Current `v1.2` interaction line is a formal draft, not yet a final frozen universal contract.
 The lifecycle, estimation, and actuation lines are also draft lines.
 All are stable enough for review and implementation alignment, but none are yet treated as permanent final form across all future domains.
+
+## Seed skeleton vs richer draft
+
+When a seed skeleton line already exists, the repository does **not** mutate that line in place to become a richer draft.
+Instead:
+
+- keep the seed topic as landed reference
+- add a new topic name for the richer draft line
+- update docs and registry to mark which line is currently recommended
+
+That is why this repository keeps:
+
+- `naturalcontrol.estimation_observation.v1` and `naturalcontrol.estimation_prediction.v1` as skeleton seeds
+- `naturalcontrol.estimation_observation.v1.1` and `naturalcontrol.estimation_prediction.v1.1` as the current recommended draft estimation line
+- `naturalcontrol.actuation_bundle.v1` as a skeleton seed
+- `naturalcontrol.actuation_bundle.v1.1` and `naturalcontrol.actuation_receipt.v1` as the current recommended actuation draft line
 
 ## Current repository quality gate
 

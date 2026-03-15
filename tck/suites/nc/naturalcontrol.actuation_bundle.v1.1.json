@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.actuation_bundle.v1.1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.actuation_bundle.v1.1:shape-ok",
+      "given": "samples/naturalcontrol.actuation_bundle.v1.1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.actuation_bundle.v1.1'",
+        "$.spec_version == '1.1'",
+        "$.surface_profile_ref == 'surface/mouse/default-v1'",
+        "$.atoms[0].channel == 'pointer'",
+        "$.atoms[1].kind == 'pointer_button'"
+      ]
+    }
+  ]
+}

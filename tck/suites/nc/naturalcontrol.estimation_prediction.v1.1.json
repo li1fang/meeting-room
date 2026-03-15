@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.estimation_prediction.v1.1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.estimation_prediction.v1.1:shape-ok",
+      "given": "samples/naturalcontrol.estimation_prediction.v1.1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.estimation_prediction.v1.1'",
+        "$.spec_version == '1.1'",
+        "$.source_observation_id == 'obs-011'",
+        "$.subjects[0].representation_kind == 'hybrid'",
+        "$.subjects[0].uncertainty.radius_2d == 6"
+      ]
+    }
+  ]
+}

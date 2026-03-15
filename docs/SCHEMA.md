@@ -19,8 +19,8 @@ This repository allows direct minor-version schema naming for formal draft lines
 Examples:
 
 - `naturalcontrol.interaction_request.v1.2`
-- `naturalcontrol.interaction_frame.v1.2`
-- `naturalcontrol.interaction_trace_pack.v1.2`
+- `naturalcontrol.estimation_observation.v1.1`
+- `naturalcontrol.actuation_bundle.v1.1`
 
 Stable lines may later use major-only naming if needed, but that is not the only allowed form here.
 
@@ -63,24 +63,35 @@ Canonical sample files:
 - `samples/naturalcontrol.lifecycle_progress.v1/minimal.json`
 - `samples/naturalcontrol.lifecycle_result.v1/minimal.json`
 
-## Current estimation line
+## Estimation line
 
-Canonical schema files:
+Seed skeleton schema files:
 
 - `schemas/nc/naturalcontrol.estimation_observation.v1.schema.json`
 - `schemas/nc/naturalcontrol.estimation_prediction.v1.schema.json`
 
-Canonical sample files:
+Recommended draft schema files:
 
-- `samples/naturalcontrol.estimation_observation.v1/minimal.json`
-- `samples/naturalcontrol.estimation_prediction.v1/minimal.json`
+- `schemas/nc/naturalcontrol.estimation_observation.v1.1.schema.json`
+- `schemas/nc/naturalcontrol.estimation_prediction.v1.1.schema.json`
 
-## Current actuation line
+Canonical sample files for the recommended line:
 
-Canonical schema files:
+- `samples/naturalcontrol.estimation_observation.v1.1/minimal.json`
+- `samples/naturalcontrol.estimation_prediction.v1.1/minimal.json`
+
+## Actuation line
+
+Seed skeleton schema file:
 
 - `schemas/nc/naturalcontrol.actuation_bundle.v1.schema.json`
 
-Canonical sample files:
+Recommended draft schema files:
 
-- `samples/naturalcontrol.actuation_bundle.v1/minimal.json`
+- `schemas/nc/naturalcontrol.actuation_bundle.v1.1.schema.json`
+- `schemas/nc/naturalcontrol.actuation_receipt.v1.schema.json`
+
+Canonical sample files for the recommended line:
+
+- `samples/naturalcontrol.actuation_bundle.v1.1/minimal.json`
+- `samples/naturalcontrol.actuation_receipt.v1/minimal.json`

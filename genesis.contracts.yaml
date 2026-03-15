@@ -61,12 +61,40 @@ domains:
     trace_id: interaction_id
     throughput_eps: 120
     retention_days: 7
+  - name: naturalcontrol.estimation_observation.v1.1
+    status: draft
+    partition_key: observation_id
+    idempotency_key: observation_id
+    trace_id: interaction_id
+    throughput_eps: 120
+    retention_days: 7
+  - name: naturalcontrol.estimation_prediction.v1.1
+    status: draft
+    partition_key: prediction_id
+    idempotency_key: prediction_id
+    trace_id: interaction_id
+    throughput_eps: 120
+    retention_days: 7
   - name: naturalcontrol.actuation_bundle.v1
     status: draft
     partition_key: execution_id
     idempotency_key: bundle_id
     trace_id: interaction_id
     throughput_eps: 60
+    retention_days: 7
+  - name: naturalcontrol.actuation_bundle.v1.1
+    status: draft
+    partition_key: execution_id
+    idempotency_key: bundle_id
+    trace_id: interaction_id
+    throughput_eps: 60
+    retention_days: 7
+  - name: naturalcontrol.actuation_receipt.v1
+    status: draft
+    partition_key: execution_id
+    idempotency_key: receipt_id
+    trace_id: interaction_id
+    throughput_eps: 120
     retention_days: 7
 future_domains:
 - name: np

@@ -18,10 +18,16 @@ This document records what was borrowed from AGI-Nutshell and what was intention
   - not borrowed as old topic names or old envelopes
 - estimation line
   - borrowed the idea that richer subject-state expression belongs in its own layer
-  - not borrowed as old perception topic shapes
+  - not borrowed as old perception topic shapes or old compatibility rules
 - actuation line
   - borrowed the idea that execution bundles belong in their own layer
   - not borrowed as `nc.control.bundle.v1` compatibility
+- estimation v1.1
+  - borrowed the richer-state-expression direction from older perception work
+  - not borrowed as old wire identity, old envelope, or old payload layout
+- actuation v1.1
+  - borrowed the execution-bundle layering direction from older actuation-oriented work
+  - not borrowed as old topic naming or execution-wire compatibility
 
 ### Possible future candidates
 

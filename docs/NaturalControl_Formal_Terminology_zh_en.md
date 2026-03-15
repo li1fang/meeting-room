@@ -304,6 +304,36 @@ What it means:
 - 指诸如头部、颈部、眼部或关节等命名关键点，用来描述更丰富的状态。
 - 在本仓库里它只是估测层的可选扩展，不是已经冻结的基线契约。
 
+### `track state` / `跟踪状态`
+
+What it means:
+- A compact state describing whether a subject is directly tracked, predicted-visible, occluded, or lost.
+- It belongs to the estimation layer, not to lifecycle reporting.
+
+解释：
+- 用来描述一个主体当前是被直接跟踪、预测可见、被遮挡还是已丢失的紧凑状态。
+- 它属于估测层，不属于生命周期报告。
+
+### `representation kind` / `表示形式`
+
+What it means:
+- The declared shape used to represent one subject in estimation payloads.
+- Example values: `bbox2d`, `point2d`, `body_keypoints`, `hybrid`.
+
+解释：
+- 表示在估测 payload 中一个主体是用什么形式表达的。
+- 例如：`bbox2d`、`point2d`、`body_keypoints`、`hybrid`。
+
+### `body keypoint set` / `身体关键点集合`
+
+What it means:
+- A named catalog identifier for a coherent keypoint vocabulary.
+- It exists so body-keypoint payloads do not drift into ad hoc local names.
+
+解释：
+- 表示一组身体关键点命名体系的目录标识。
+- 它存在的目的，是避免 body keypoint payload 漂移成临时的本地命名。
+
 ### `actuation layer` / `执行层`
 
 What it means:
@@ -343,6 +373,36 @@ What it means:
 解释：
 - 表示一个执行束面向哪种设备或控制表面。
 - 例如：`mouse`、`touch`、`gamepad`、`gear`。
+
+### `surface profile` / `执行表面配置`
+
+What it means:
+- A reference to a named surface configuration used by an actuation bundle.
+- It separates bundle semantics from device- or environment-specific tuning.
+
+解释：
+- 指向某个已命名执行表面配置的引用。
+- 它把执行束语义和设备/环境相关的调优信息分开。
+
+### `adapter ref` / `适配器引用`
+
+What it means:
+- A reference to the adapter or bridge expected to consume or report an actuation line.
+- It is a traceability field, not a compatibility promise.
+
+解释：
+- 指向某个将要消费或报告 actuation 线的适配器/桥接层引用。
+- 它是可追溯字段，不代表兼容承诺。
+
+### `receipt state` / `回执状态`
+
+What it means:
+- A small actuation-side state describing whether a bundle was accepted, emitted, partially emitted, or rejected.
+- It belongs to actuation feedback, not to lifecycle terminal reporting.
+
+解释：
+- 表示一个执行束在 actuation 侧是已接收、已发出、部分发出还是被拒绝的小型状态。
+- 它属于 actuation 反馈，不属于生命周期终态报告。
 
 ### `reserved expansion path` / `保留扩展路径`
 
