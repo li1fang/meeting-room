@@ -49,9 +49,12 @@ Instead:
 That is why this repository keeps:
 
 - `naturalcontrol.estimation_observation.v1` and `naturalcontrol.estimation_prediction.v1` as skeleton seeds
-- `naturalcontrol.estimation_observation.v1.1` and `naturalcontrol.estimation_prediction.v1.1` as the current recommended draft estimation line
+- `naturalcontrol.estimation_observation.v1.1` and `naturalcontrol.estimation_prediction.v1.1` as retained reference drafts
+- `naturalcontrol.estimation_observation.v1.2` and `naturalcontrol.estimation_prediction.v1.2` as the current recommended draft estimation line
 - `naturalcontrol.actuation_bundle.v1` as a skeleton seed
-- `naturalcontrol.actuation_bundle.v1.1` and `naturalcontrol.actuation_receipt.v1` as the current recommended actuation draft line
+- `naturalcontrol.actuation_bundle.v1.1` as the current recommended bundle line
+- `naturalcontrol.actuation_receipt.v1` as a broad retained receipt seed
+- `naturalcontrol.actuation_adapter_receipt.v1`, `naturalcontrol.actuation_injector_receipt.v1`, and `naturalcontrol.actuation_device_receipt.v1` as the current recommended execution-receipt line
 
 ## Current repository quality gate
 

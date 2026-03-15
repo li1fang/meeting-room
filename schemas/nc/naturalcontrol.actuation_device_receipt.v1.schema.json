@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.actuation_device_receipt.v1.schema.json",
+  "title": "NaturalControl Actuation Device Receipt v1",
+  "description": "Actuation execution receipt for device-facing observation or confirmation.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "device_receipt_id",
+    "bundle_id",
+    "execution_id",
+    "surface_kind",
+    "device_ref",
+    "receipt_state"
+  ],
+  "properties": {
+    "schema_id": { "const": "naturalcontrol.actuation_device_receipt.v1" },
+    "spec_version": { "const": "1.0" },
+    "epoch_ns": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue" },
+    "device_receipt_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "bundle_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "request_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "interaction_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "execution_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "surface_kind": {
+      "type": "string",
+      "enum": ["mouse", "touch", "gamepad", "gear", "unknown"]
+    },
+    "device_ref": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+    "receipt_state": {
+      "type": "string",
+      "enum": ["observed", "confirmed", "partial", "rejected"]
+    },
+    "observed_event_count": { "type": "integer", "minimum": 0 },
+    "source_node": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+    "error": {
+      "type": "object",
+      "required": ["code", "reason"],
+      "properties": {
+        "code": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+        "reason": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "meta": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "receipt_state": { "const": "rejected" } }, "required": ["receipt_state"] },
+      "then": { "required": ["error"] }
+    }
+  ],
+  "additionalProperties": false
+}

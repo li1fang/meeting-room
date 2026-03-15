@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.estimation_observation.v1.2:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.estimation_observation.v1.2:shape-ok",
+      "given": "samples/naturalcontrol.estimation_observation.v1.2/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.estimation_observation.v1.2'",
+        "$.spec_version == '1.2'",
+        "$.subjects[0].geometry_3d.space_kind == 'camera_xyz'",
+        "$.subjects[0].kinematics_3d.units == 'meters'",
+        "$.subjects[0].body_keypoints[0].name == 'head_center'"
+      ]
+    }
+  ]
+}

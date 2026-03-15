@@ -427,3 +427,57 @@ Examples:
 示例：
 - 契约词汇：`action target`、`cluster`、`zone map`、`observation`、`actuation bundle`
 - 内部词汇：`patch`、`warhead`、`quilt`、`orbital`
+
+### `uncertainty model` / `不确定性模型`
+
+What it means:
+- The declared geometric model used to express prediction uncertainty.
+- In the current line it is still a small model, not a full probabilistic standard.
+
+解释：
+- 表示用于表达预测不确定性的几何模型。
+- 在当前版本里它仍是小型模型，不是完整概率标准。
+
+### `confidence level` / `置信水平`
+
+What it means:
+- The confidence boundary associated with a declared uncertainty region.
+- It explains what the region is supposed to mean, instead of leaving the radius ambiguous.
+
+解释：
+- 表示一个不确定性区域对应的置信边界。
+- 它的作用是解释这个区域到底代表什么置信含义，而不是让半径字段含义含糊。
+
+### `adapter receipt` / `适配器回执`
+
+What it means:
+- A receipt emitted by the adapter layer after bundle acceptance or translation.
+
+解释：
+- 由 adapter 层在接收或翻译 bundle 之后发出的回执。
+
+### `injector receipt` / `注入器回执`
+
+What it means:
+- A receipt emitted by the injector/backend layer after injection-side handling.
+
+解释：
+- 由 injector/backend 层在注入侧处理之后发出的回执。
+
+### `device receipt` / `设备回执`
+
+What it means:
+- A receipt emitted at the device-facing edge after observation or confirmation.
+
+解释：
+- 由设备侧边界在观察到或确认执行结果后发出的回执。
+
+### `3D expression` / `三维表达`
+
+What it means:
+- An optional structured way to carry 3D geometry or kinematics in estimation payloads.
+- It is not yet the same thing as a full 3D world/body-space standard.
+
+解释：
+- 指 estimation payload 中可选使用的结构化三维几何或运动学表达。
+- 它目前还不等于完整的 3D 世界/身体空间标准。

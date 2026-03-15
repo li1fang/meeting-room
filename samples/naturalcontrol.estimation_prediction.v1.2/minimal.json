@@ -1,0 +1,93 @@
+{
+  "schema_id": "naturalcontrol.estimation_prediction.v1.2",
+  "spec_version": "1.2",
+  "epoch_ns": "1742060000001000000",
+  "prediction_id": "pred-021",
+  "source_observation_id": "obs-021",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-blueclicker-001",
+  "horizon_ns": "32000000",
+  "coordinate_space": {
+    "space_kind": "viewport_px",
+    "viewport_w": 1920,
+    "viewport_h": 1080,
+    "dpr": 1
+  },
+  "subjects": [
+    {
+      "subject_id": "target-blue-001",
+      "confidence": 0.95,
+      "representation_kind": "hybrid",
+      "geometry_2d": {
+        "bbox": {
+          "x": 764,
+          "y": 180,
+          "w": 64,
+          "h": 64
+        },
+        "point": {
+          "x": 796,
+          "y": 212
+        }
+      },
+      "geometry_3d": {
+        "space_kind": "camera_xyz",
+        "units": "meters",
+        "position": {
+          "x": 1.22,
+          "y": 0.4,
+          "z": 12.5
+        },
+        "frame_ref": "camera/front-main"
+      },
+      "kinematics_2d": {
+        "velocity": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      "kinematics_3d": {
+        "space_kind": "camera_xyz",
+        "units": "meters",
+        "velocity": {
+          "x": 0.05,
+          "y": 0,
+          "z": -0.1
+        }
+      },
+      "body_keypoints": [
+        {
+          "name": "head_center",
+          "point2d": {
+            "x": 796,
+            "y": 194
+          },
+          "position3d": {
+            "x": 1.22,
+            "y": 0.2,
+            "z": 12.5
+          },
+          "confidence": 0.94
+        }
+      ],
+      "uncertainty": {
+        "model": "ellipse2d+sphere3d",
+        "confidence_level": 0.9,
+        "region_2d": {
+          "shape": "ellipse",
+          "major_radius": 8,
+          "minor_radius": 4,
+          "angle_deg": 0
+        },
+        "region_3d": {
+          "shape": "sphere",
+          "space_kind": "camera_xyz",
+          "units": "meters",
+          "radius": 0.25
+        },
+        "notes": "short-horizon predicted spread"
+      },
+      "model_ref": "kalman/ellipse-v2"
+    }
+  ]
+}

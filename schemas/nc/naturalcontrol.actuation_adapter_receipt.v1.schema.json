@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.actuation_adapter_receipt.v1.schema.json",
+  "title": "NaturalControl Actuation Adapter Receipt v1",
+  "description": "Actuation execution receipt for adapter-side acceptance, translation, and handoff.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "adapter_receipt_id",
+    "bundle_id",
+    "execution_id",
+    "adapter_ref",
+    "receipt_state"
+  ],
+  "properties": {
+    "schema_id": { "const": "naturalcontrol.actuation_adapter_receipt.v1" },
+    "spec_version": { "const": "1.0" },
+    "epoch_ns": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue" },
+    "adapter_receipt_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "bundle_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "request_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "interaction_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "execution_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "adapter_ref": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+    "receipt_state": {
+      "type": "string",
+      "enum": ["accepted", "translated", "partial", "rejected"]
+    },
+    "translated_atom_count": { "type": "integer", "minimum": 0 },
+    "injector_handoff_ref": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+    "error": {
+      "type": "object",
+      "required": ["code", "reason"],
+      "properties": {
+        "code": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+        "reason": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "meta": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "receipt_state": { "const": "rejected" } }, "required": ["receipt_state"] },
+      "then": { "required": ["error"] }
+    }
+  ],
+  "additionalProperties": false
+}

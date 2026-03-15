@@ -28,6 +28,12 @@ This document records what was borrowed from AGI-Nutshell and what was intention
 - actuation v1.1
   - borrowed the execution-bundle layering direction from older actuation-oriented work
   - not borrowed as old topic naming or execution-wire compatibility
+- estimation v1.2
+  - borrowed the richer state-expression direction again, but tightened it into explicit uncertainty and optional 3D structures
+  - not borrowed as old perception wire shape or legacy compatibility policy
+- actuation execution receipts
+  - borrowed the execution feedback layering instinct, but split ownership into adapter / injector / device receipts
+  - not borrowed as old execution wire compatibility or old envelope rules
 
 ### Possible future candidates
 

@@ -58,6 +58,18 @@ naturalcontrol.estimation_prediction.v1.1:
   trace_id: interaction_id
   throughput_eps: 120
   retention_days: 7
+naturalcontrol.estimation_observation.v1.2:
+  partition_key: observation_id
+  idempotency_key: observation_id
+  trace_id: interaction_id
+  throughput_eps: 120
+  retention_days: 7
+naturalcontrol.estimation_prediction.v1.2:
+  partition_key: prediction_id
+  idempotency_key: prediction_id
+  trace_id: interaction_id
+  throughput_eps: 120
+  retention_days: 7
 naturalcontrol.actuation_bundle.v1:
   partition_key: execution_id
   idempotency_key: bundle_id
@@ -73,6 +85,24 @@ naturalcontrol.actuation_bundle.v1.1:
 naturalcontrol.actuation_receipt.v1:
   partition_key: execution_id
   idempotency_key: receipt_id
+  trace_id: interaction_id
+  throughput_eps: 120
+  retention_days: 7
+naturalcontrol.actuation_adapter_receipt.v1:
+  partition_key: execution_id
+  idempotency_key: adapter_receipt_id
+  trace_id: interaction_id
+  throughput_eps: 120
+  retention_days: 7
+naturalcontrol.actuation_injector_receipt.v1:
+  partition_key: execution_id
+  idempotency_key: injector_receipt_id
+  trace_id: interaction_id
+  throughput_eps: 120
+  retention_days: 7
+naturalcontrol.actuation_device_receipt.v1:
+  partition_key: execution_id
+  idempotency_key: device_receipt_id
   trace_id: interaction_id
   throughput_eps: 120
   retention_days: 7

@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.estimation_prediction.v1.2.schema.json",
+  "title": "NaturalControl Estimation Prediction v1.2",
+  "description": "Estimation-layer payload for future predicted subject state. v1.2 tightens optional 3D expression and uncertainty modeling while preserving earlier lines unchanged.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "prediction_id",
+    "source_observation_id",
+    "horizon_ns",
+    "coordinate_space",
+    "subjects"
+  ],
+  "properties": {
+    "schema_id": { "const": "naturalcontrol.estimation_prediction.v1.2" },
+    "spec_version": { "const": "1.2" },
+    "epoch_ns": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue" },
+    "prediction_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "source_observation_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "request_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "interaction_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "trace_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+    "horizon_ns": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue" },
+    "coordinate_space": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/coordinateSpace" },
+    "subjects": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/predictedSubject" }
+    },
+    "meta": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject" }
+  },
+  "$defs": {
+    "vector3": {
+      "type": "object",
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "representationKind": {
+      "type": "string",
+      "enum": ["bbox2d", "point2d", "bbox2d+point2d", "body_keypoints", "hybrid"]
+    },
+    "bodyKeypointName": {
+      "type": "string",
+      "enum": ["head_center", "neck_center", "left_eye", "right_eye", "left_shoulder", "right_shoulder"]
+    },
+    "geometry2d": {
+      "type": "object",
+      "properties": {
+        "bbox": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/bbox" },
+        "point": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2" }
+      },
+      "additionalProperties": false
+    },
+    "threeDSpaceKind": {
+      "type": "string",
+      "enum": ["camera_xyz", "world_xyz", "custom"]
+    },
+    "threeDUnits": {
+      "type": "string",
+      "enum": ["meters", "normalized", "custom"]
+    },
+    "geometry3d": {
+      "type": "object",
+      "required": ["space_kind", "units", "position"],
+      "properties": {
+        "space_kind": { "$ref": "#/$defs/threeDSpaceKind" },
+        "units": { "$ref": "#/$defs/threeDUnits" },
+        "position": { "$ref": "#/$defs/vector3" },
+        "frame_ref": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+        "notes": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "space_kind": { "const": "custom" } }, "required": ["space_kind"] },
+          "then": { "required": ["notes"] }
+        },
+        {
+          "if": { "properties": { "units": { "const": "custom" } }, "required": ["units"] },
+          "then": { "required": ["notes"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "kinematics2d": {
+      "type": "object",
+      "properties": {
+        "velocity": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2" },
+        "acceleration": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2" }
+      },
+      "anyOf": [
+        { "required": ["velocity"] },
+        { "required": ["acceleration"] }
+      ],
+      "additionalProperties": false
+    },
+    "kinematics3d": {
+      "type": "object",
+      "required": ["space_kind", "units"],
+      "properties": {
+        "space_kind": { "$ref": "#/$defs/threeDSpaceKind" },
+        "units": { "$ref": "#/$defs/threeDUnits" },
+        "velocity": { "$ref": "#/$defs/vector3" },
+        "acceleration": { "$ref": "#/$defs/vector3" },
+        "frame_ref": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+        "notes": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" }
+      },
+      "allOf": [
+        { "anyOf": [ { "required": ["velocity"] }, { "required": ["acceleration"] } ] },
+        {
+          "if": { "properties": { "space_kind": { "const": "custom" } }, "required": ["space_kind"] },
+          "then": { "required": ["notes"] }
+        },
+        {
+          "if": { "properties": { "units": { "const": "custom" } }, "required": ["units"] },
+          "then": { "required": ["notes"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "bodyKeypoint": {
+      "type": "object",
+      "required": ["name", "point2d", "confidence"],
+      "properties": {
+        "name": { "$ref": "#/$defs/bodyKeypointName" },
+        "point2d": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2" },
+        "position3d": { "$ref": "#/$defs/vector3" },
+        "confidence": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability" }
+      },
+      "additionalProperties": false
+    },
+    "region2d": {
+      "type": "object",
+      "required": ["shape"],
+      "properties": {
+        "shape": { "type": "string", "enum": ["circle", "ellipse"] },
+        "radius": { "type": "number", "minimum": 0 },
+        "major_radius": { "type": "number", "minimum": 0 },
+        "minor_radius": { "type": "number", "minimum": 0 },
+        "angle_deg": { "type": "number" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "shape": { "const": "circle" } }, "required": ["shape"] },
+          "then": { "required": ["radius"], "properties": { "major_radius": false, "minor_radius": false, "angle_deg": false } }
+        },
+        {
+          "if": { "properties": { "shape": { "const": "ellipse" } }, "required": ["shape"] },
+          "then": { "required": ["major_radius", "minor_radius", "angle_deg"], "properties": { "radius": false } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "region3d": {
+      "type": "object",
+      "required": ["shape", "space_kind", "units", "radius"],
+      "properties": {
+        "shape": { "type": "string", "enum": ["sphere"] },
+        "space_kind": { "$ref": "#/$defs/threeDSpaceKind" },
+        "units": { "$ref": "#/$defs/threeDUnits" },
+        "radius": { "type": "number", "minimum": 0 },
+        "notes": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "space_kind": { "const": "custom" } }, "required": ["space_kind"] },
+          "then": { "required": ["notes"] }
+        },
+        {
+          "if": { "properties": { "units": { "const": "custom" } }, "required": ["units"] },
+          "then": { "required": ["notes"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": ["model", "confidence_level", "region_2d"],
+      "properties": {
+        "model": {
+          "type": "string",
+          "enum": ["circle2d", "ellipse2d", "circle2d+sphere3d", "ellipse2d+sphere3d"]
+        },
+        "confidence_level": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability" },
+        "region_2d": { "$ref": "#/$defs/region2d" },
+        "region_3d": { "$ref": "#/$defs/region3d" },
+        "notes": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "model": { "enum": ["circle2d+sphere3d", "ellipse2d+sphere3d"] } }, "required": ["model"] },
+          "then": { "required": ["region_3d"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "predictedSubject": {
+      "type": "object",
+      "required": ["subject_id", "confidence", "representation_kind", "uncertainty"],
+      "properties": {
+        "subject_id": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier" },
+        "confidence": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability" },
+        "representation_kind": { "$ref": "#/$defs/representationKind" },
+        "geometry_2d": { "$ref": "#/$defs/geometry2d" },
+        "geometry_3d": { "$ref": "#/$defs/geometry3d" },
+        "kinematics_2d": { "$ref": "#/$defs/kinematics2d" },
+        "kinematics_3d": { "$ref": "#/$defs/kinematics3d" },
+        "body_keypoints": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/bodyKeypoint" }
+        },
+        "uncertainty": { "$ref": "#/$defs/uncertainty" },
+        "model_ref": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString" },
+        "meta": { "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "representation_kind": { "const": "bbox2d" } }, "required": ["representation_kind"] },
+          "then": { "properties": { "geometry_2d": { "required": ["bbox"] } }, "required": ["geometry_2d"] }
+        },
+        {
+          "if": { "properties": { "representation_kind": { "const": "point2d" } }, "required": ["representation_kind"] },
+          "then": { "properties": { "geometry_2d": { "required": ["point"] } }, "required": ["geometry_2d"] }
+        },
+        {
+          "if": { "properties": { "representation_kind": { "const": "bbox2d+point2d" } }, "required": ["representation_kind"] },
+          "then": { "properties": { "geometry_2d": { "required": ["bbox", "point"] } }, "required": ["geometry_2d"] }
+        },
+        {
+          "if": { "properties": { "representation_kind": { "const": "body_keypoints" } }, "required": ["representation_kind"] },
+          "then": { "required": ["body_keypoints"] }
+        },
+        {
+          "if": { "properties": { "representation_kind": { "const": "hybrid" } }, "required": ["representation_kind"] },
+          "then": {
+            "anyOf": [
+              { "required": ["geometry_2d"] },
+              { "required": ["body_keypoints"] },
+              { "required": ["geometry_3d"] }
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

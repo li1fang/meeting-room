@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.estimation_prediction.v1.2:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.estimation_prediction.v1.2:shape-ok",
+      "given": "samples/naturalcontrol.estimation_prediction.v1.2/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.estimation_prediction.v1.2'",
+        "$.spec_version == '1.2'",
+        "$.subjects[0].uncertainty.model == 'ellipse2d+sphere3d'",
+        "$.subjects[0].uncertainty.region_2d.shape == 'ellipse'",
+        "$.subjects[0].uncertainty.region_3d.shape == 'sphere'"
+      ]
+    }
+  ]
+}

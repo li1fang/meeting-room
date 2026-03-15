@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.actuation_adapter_receipt.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.actuation_adapter_receipt.v1:shape-ok",
+      "given": "samples/naturalcontrol.actuation_adapter_receipt.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.actuation_adapter_receipt.v1'",
+        "$.spec_version == '1.0'",
+        "$.receipt_state == 'translated'",
+        "$.translated_atom_count == 3",
+        "$.injector_handoff_ref == 'injector-batch-001'"
+      ]
+    }
+  ]
+}

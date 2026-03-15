@@ -19,8 +19,8 @@ This repository allows direct minor-version schema naming for formal draft lines
 Examples:
 
 - `naturalcontrol.interaction_request.v1.2`
-- `naturalcontrol.estimation_observation.v1.1`
-- `naturalcontrol.actuation_bundle.v1.1`
+- `naturalcontrol.estimation_observation.v1.2`
+- `naturalcontrol.actuation_adapter_receipt.v1`
 
 Stable lines may later use major-only naming if needed, but that is not the only allowed form here.
 
@@ -72,13 +72,18 @@ Seed skeleton schema files:
 
 Recommended draft schema files:
 
+- `schemas/nc/naturalcontrol.estimation_observation.v1.2.schema.json`
+- `schemas/nc/naturalcontrol.estimation_prediction.v1.2.schema.json`
+
+Reference draft schema files retained:
+
 - `schemas/nc/naturalcontrol.estimation_observation.v1.1.schema.json`
 - `schemas/nc/naturalcontrol.estimation_prediction.v1.1.schema.json`
 
 Canonical sample files for the recommended line:
 
-- `samples/naturalcontrol.estimation_observation.v1.1/minimal.json`
-- `samples/naturalcontrol.estimation_prediction.v1.1/minimal.json`
+- `samples/naturalcontrol.estimation_observation.v1.2/minimal.json`
+- `samples/naturalcontrol.estimation_prediction.v1.2/minimal.json`
 
 ## Actuation line
 
@@ -89,9 +94,17 @@ Seed skeleton schema file:
 Recommended draft schema files:
 
 - `schemas/nc/naturalcontrol.actuation_bundle.v1.1.schema.json`
+- `schemas/nc/naturalcontrol.actuation_adapter_receipt.v1.schema.json`
+- `schemas/nc/naturalcontrol.actuation_injector_receipt.v1.schema.json`
+- `schemas/nc/naturalcontrol.actuation_device_receipt.v1.schema.json`
+
+Reference receipt schema retained:
+
 - `schemas/nc/naturalcontrol.actuation_receipt.v1.schema.json`
 
 Canonical sample files for the recommended line:
 
 - `samples/naturalcontrol.actuation_bundle.v1.1/minimal.json`
-- `samples/naturalcontrol.actuation_receipt.v1/minimal.json`
+- `samples/naturalcontrol.actuation_adapter_receipt.v1/minimal.json`
+- `samples/naturalcontrol.actuation_injector_receipt.v1/minimal.json`
+- `samples/naturalcontrol.actuation_device_receipt.v1/minimal.json`

@@ -1,0 +1,14 @@
+{
+  "schema_id": "naturalcontrol.actuation_adapter_receipt.v1",
+  "spec_version": "1.0",
+  "epoch_ns": "1742060000010000000",
+  "adapter_receipt_id": "adapter-receipt-001",
+  "bundle_id": "bundle-011",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-blueclicker-001",
+  "execution_id": "exec-001",
+  "adapter_ref": "adapter/uinput-v1",
+  "receipt_state": "translated",
+  "translated_atom_count": 3,
+  "injector_handoff_ref": "injector-batch-001"
+}
