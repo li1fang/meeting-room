@@ -1,0 +1,46 @@
+{
+  "schema_id": "naturalcontrol.actuation_bundle.v1",
+  "spec_version": "1.0",
+  "epoch_ns": "1742040000010000000",
+  "bundle_id": "bundle-001",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-blueclicker-001",
+  "execution_id": "exec-001",
+  "surface_kind": "mouse",
+  "time_basis": "relative_to_interaction_epoch_ns",
+  "atoms": [
+    {
+      "atom_id": "atom-001",
+      "offset_ns": "0",
+      "duration_ns": "8000000",
+      "kind": "pointer_delta",
+      "payload": {
+        "dx": 18,
+        "dy": -4
+      },
+      "source_segment": "segment-001"
+    },
+    {
+      "atom_id": "atom-002",
+      "offset_ns": "8000000",
+      "duration_ns": "1000000",
+      "kind": "pointer_button",
+      "payload": {
+        "button": "left",
+        "state": "press"
+      },
+      "source_segment": "segment-001"
+    },
+    {
+      "atom_id": "atom-003",
+      "offset_ns": "9000000",
+      "duration_ns": "1000000",
+      "kind": "pointer_button",
+      "payload": {
+        "button": "left",
+        "state": "release"
+      },
+      "source_segment": "segment-001"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema_id": "naturalcontrol.estimation_prediction.v1",
+  "spec_version": "1.0",
+  "epoch_ns": "1742040000001000000",
+  "prediction_id": "pred-001",
+  "source_observation_id": "obs-001",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-blueclicker-001",
+  "horizon_ns": "16000000",
+  "coordinate_space": {
+    "space_kind": "viewport_px",
+    "viewport_w": 1920,
+    "viewport_h": 1080,
+    "dpr": 1
+  },
+  "subjects": [
+    {
+      "subject_id": "target-blue-001",
+      "confidence": 0.94,
+      "bbox2d": {
+        "x": 762,
+        "y": 180,
+        "w": 64,
+        "h": 64
+      },
+      "velocity": {
+        "x": 2,
+        "y": 0
+      },
+      "acceleration": {
+        "x": 0,
+        "y": 0
+      },
+      "uncertainty": {
+        "radius": 6,
+        "notes": "simple forward prediction"
+      },
+      "model_ref": "kalman/basic-v1"
+    }
+  ]
+}

@@ -61,4 +61,5 @@ Future work should extend in layers:
 2. estimation layer
 3. actuation layer
 
-This repository starts with layer 1 only.
+`v1.2` itself remains layer 1 only.
+The repository now also carries separate draft lines for layers 2 and 3, but those do not widen the `v1.2` baseline itself.

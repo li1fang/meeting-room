@@ -214,23 +214,6 @@ What it means:
 - 指已经足够稳定，可以跨团队评审，但还没有冻结成最终通用契约的候选版本。
 - 一个正式草案必须同时说明自己的适用范围，以及明确不覆盖哪些能力。
 
-## Naming Rule / 命名规则
-
-- Use contract words in schemas and APIs.
-- Keep implementation words inside engines and experiments.
-
-- Schema 和 API 使用契约词汇。
-- 引擎和实验内部再使用实现词汇。
-
-Examples:
-- Contract words: `action target`, `cluster`, `zone map`
-- Internal words: `patch`, `warhead`, `quilt`, `orbital`
-
-示例：
-- 契约词汇：`action target`、`cluster`、`zone map`
-- 内部词汇：`patch`、`warhead`、`quilt`、`orbital`
-
-
 ### `lifecycle line` / `生命周期线`
 
 What it means:
@@ -270,3 +253,117 @@ What it means:
 解释：
 - 一次执行尝试最终的报告状态。
 - 例如：`succeeded`、`failed`、`aborted`。
+
+### `estimation layer` / `估测层`
+
+What it means:
+- The layer that describes what is observed now and what is predicted next.
+- It does not decide intent and does not define execution bundles.
+
+解释：
+- 用来描述“现在看到了什么”和“接下来预测会变成什么”的层。
+- 它不负责决定交互意图，也不负责定义执行束。
+
+### `observation` / `观测`
+
+What it means:
+- A payload describing current subject state at one time point.
+- It is the estimation-side answer to “what is visible now”.
+
+解释：
+- 描述某一时刻主体当前状态的 payload。
+- 它是在估测侧回答“现在看到了什么”。
+
+### `prediction` / `预测`
+
+What it means:
+- A payload describing future subject state at a declared horizon.
+- It is the estimation-side answer to “where is this likely to be next”.
+
+解释：
+- 在给定时间跨度上描述未来主体状态的 payload。
+- 它是在估测侧回答“接下来很可能会在哪里”。
+
+### `subject` / `主体`
+
+What it means:
+- A tracked or predicted entity inside the estimation layer.
+- A subject may be a target, cursor, object, or body-part related entity.
+
+解释：
+- 估测层中的被跟踪或被预测对象。
+- 它可以是目标、光标、物体，或与身体部位相关的实体。
+
+### `body keypoint` / `身体关键点`
+
+What it means:
+- A named point such as head, neck, eye, or joint carried for richer state description.
+- In this repository it is an optional estimation extension, not a frozen baseline contract.
+
+解释：
+- 指诸如头部、颈部、眼部或关节等命名关键点，用来描述更丰富的状态。
+- 在本仓库里它只是估测层的可选扩展，不是已经冻结的基线契约。
+
+### `actuation layer` / `执行层`
+
+What it means:
+- The layer that turns interaction outcomes into device-facing bundles.
+- It is not the same thing as lifecycle reporting or intent planning.
+
+解释：
+- 把交互结果转成设备侧执行束的层。
+- 它不等于生命周期报告，也不等于意图规划。
+
+### `actuation bundle` / `执行束`
+
+What it means:
+- A bundle of time-ordered atoms prepared for one execution surface.
+- It is the actuation-side unit of delivery.
+
+解释：
+- 面向某个执行表面、按时间排序的一组原子动作束。
+- 它是执行层交付的基本单位。
+
+### `atom` / `执行原子`
+
+What it means:
+- A smallest device-facing actuation unit inside a bundle, such as a pointer delta or a button action.
+- It is an actuation term, not an interaction intent term.
+
+解释：
+- 执行束中的最小设备侧动作单元，例如指针位移或按钮动作。
+- 它是执行层术语，不是交互意图术语。
+
+### `surface kind` / `执行表面类型`
+
+What it means:
+- The device/control surface a bundle is intended for.
+- Example values: `mouse`, `touch`, `gamepad`, `gear`.
+
+解释：
+- 表示一个执行束面向哪种设备或控制表面。
+- 例如：`mouse`、`touch`、`gamepad`、`gear`。
+
+### `reserved expansion path` / `保留扩展路径`
+
+What it means:
+- A documented rule that a future domain may land later, but no fake schema or fake registry topic is created in advance.
+
+解释：
+- 指已经写清楚未来某个域可以如何进入仓库，但不会提前伪造 schema 或 registry topic 的规则。
+
+## Naming Rule / 命名规则
+
+- Use contract words in schemas and APIs.
+- Keep implementation words inside engines and experiments.
+
+- Schema 和 API 使用契约词汇。
+- 引擎和实验内部再使用实现词汇。
+
+Examples:
+- Contract words: `action target`, `cluster`, `zone map`, `observation`, `actuation bundle`
+- Internal words: `patch`, `warhead`, `quilt`, `orbital`
+
+示例：
+- 契约词汇：`action target`、`cluster`、`zone map`、`observation`、`actuation bundle`
+- 内部词汇：`patch`、`warhead`、`quilt`、`orbital`

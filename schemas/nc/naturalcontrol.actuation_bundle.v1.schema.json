@@ -1,0 +1,351 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.actuation_bundle.v1.schema.json",
+  "title": "NaturalControl Actuation Bundle v1",
+  "description": "Actuation-layer bundle for device-facing execution atoms. This line formalizes bundle shape without redefining interaction or lifecycle semantics.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "bundle_id",
+    "request_id",
+    "interaction_id",
+    "execution_id",
+    "surface_kind",
+    "time_basis",
+    "atoms"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.actuation_bundle.v1"
+    },
+    "spec_version": {
+      "const": "1.0"
+    },
+    "epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "bundle_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "interaction_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "execution_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "surface_kind": {
+      "type": "string",
+      "enum": [
+        "mouse",
+        "touch",
+        "gamepad",
+        "gear",
+        "unknown"
+      ]
+    },
+    "time_basis": {
+      "type": "string",
+      "enum": [
+        "relative_to_bundle_epoch_ns",
+        "relative_to_interaction_epoch_ns"
+      ]
+    },
+    "atoms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/atom"
+      }
+    },
+    "mapping_ref": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+    },
+    "meta": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+    }
+  },
+  "$defs": {
+    "payloadPointerDelta": {
+      "type": "object",
+      "required": [
+        "dx",
+        "dy"
+      ],
+      "properties": {
+        "dx": {
+          "type": "number"
+        },
+        "dy": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "payloadPointerButton": {
+      "type": "object",
+      "required": [
+        "button",
+        "state"
+      ],
+      "properties": {
+        "button": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right",
+            "middle",
+            "back",
+            "forward"
+          ]
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "press",
+            "release"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "payloadTouchContact": {
+      "type": "object",
+      "required": [
+        "contact_id",
+        "phase",
+        "position"
+      ],
+      "properties": {
+        "contact_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "down",
+            "move",
+            "up",
+            "cancel"
+          ]
+        },
+        "position": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        }
+      },
+      "additionalProperties": false
+    },
+    "payloadStickVector": {
+      "type": "object",
+      "required": [
+        "stick",
+        "vector"
+      ],
+      "properties": {
+        "stick": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right",
+            "unknown"
+          ]
+        },
+        "vector": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        }
+      },
+      "additionalProperties": false
+    },
+    "payloadWait": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "payloadGearVector": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "atom": {
+      "type": "object",
+      "required": [
+        "atom_id",
+        "offset_ns",
+        "duration_ns",
+        "kind",
+        "payload"
+      ],
+      "properties": {
+        "atom_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "offset_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "duration_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "pointer_delta",
+            "pointer_button",
+            "touch_contact",
+            "stick_vector",
+            "wait",
+            "gear_vector"
+          ]
+        },
+        "payload": {
+          "type": "object"
+        },
+        "coordinate_space": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/coordinateSpace"
+        },
+        "mapping_ref": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        },
+        "source_segment": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "pointer_delta"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "$ref": "#/$defs/payloadPointerDelta"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "pointer_button"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "$ref": "#/$defs/payloadPointerButton"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "touch_contact"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "$ref": "#/$defs/payloadTouchContact"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "stick_vector"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "$ref": "#/$defs/payloadStickVector"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "wait"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "$ref": "#/$defs/payloadWait"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "gear_vector"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "$ref": "#/$defs/payloadGearVector"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

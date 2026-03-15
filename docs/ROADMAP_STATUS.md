@@ -1,12 +1,12 @@
 # Roadmap Status
 
-Current mainline view of the first formal work tracked in GitHub issues.
+Current mainline view of the formal work tracked in GitHub issues.
 
 ## Current status
 
 ### #1 lifecycle/reporting line
 
-Status: in progress, first landing complete in-repo
+Status: landed
 
 What now exists:
 
@@ -19,51 +19,68 @@ What now exists:
 
 Interpretation:
 
-The interaction baseline and the lifecycle/reporting line are now separated in the repository.
-The lifecycle line is still young, but it is no longer only a placeholder issue.
+The interaction baseline and lifecycle/reporting semantics are now formally separated in the repository.
 
 ### #2 estimation layer
 
-Status: open, not landed
+Status: landed as draft skeleton
 
-Current repository stance:
+What now exists:
 
-- reserved for future work
-- not part of the current 2D baseline
-- not yet represented by schema files in this repository
+- `naturalcontrol.estimation_observation.v1`
+- `naturalcontrol.estimation_prediction.v1`
+- minimal samples
+- minimal TCK suites
+- formal design note
+
+Interpretation:
+
+The repository now has a formal place for observation and prediction semantics without forcing those concerns into interaction or actuation payloads.
 
 ### #3 actuation layer
 
-Status: open, not landed
+Status: landed as draft skeleton
 
-Current repository stance:
+What now exists:
 
-- reserved for future work
-- execution/actuation semantics remain separate from the current interaction baseline
+- `naturalcontrol.actuation_bundle.v1`
+- minimal sample
+- minimal TCK suite
+- formal design note
+
+Interpretation:
+
+Execution-bundle semantics now have a formal home that stays separate from both interaction and lifecycle lines.
 
 ### #4 NP/PS/TS reserved expansion path
 
-Status: open, not landed
+Status: landed as repository rule
 
-Current repository stance:
+What now exists:
 
-- repository remains NC-first
-- future non-NC domains are still reserved slots, not active schema lines
+- canonical placement rule for future domains
+- minimum landing requirements for non-NC domains
+- explicit reserved-path document
+
+Interpretation:
+
+The repository stays NC-first while making future NP/PS/TS growth explicit and disciplined.
 
 ## Mainline view
 
 The current mainline of `meeting-room` is now:
 
 1. NC interaction baseline (`request/frame/trace`)
-2. NC lifecycle/reporting line (`ack/progress/result` successor)
-3. deferred estimation layer
-4. deferred actuation layer
-5. deferred multi-domain expansion
+2. NC lifecycle/reporting line
+3. NC estimation line (draft skeleton)
+4. NC actuation line (draft skeleton)
+5. reserved multi-domain expansion path
 
 ## Current recommendation
 
-Do not widen scope before the following are stable:
+Do not widen scope to 3D, ballistic, or active non-NC domain schemas before the following are stable:
 
-- the interaction baseline examples
-- the lifecycle/reporting line semantics
-- the terminology shared between both lines
+- interaction baseline examples
+- lifecycle/reporting semantics
+- estimation and actuation terminology
+- reserved-domain governance rules

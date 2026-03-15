@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.estimation_observation.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.estimation_observation.v1:shape-ok",
+      "given": "samples/naturalcontrol.estimation_observation.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.estimation_observation.v1'",
+        "$.spec_version == '1.0'",
+        "$.subjects[0].kind == 'target'",
+        "$.subjects[0].bbox2d.w == 64",
+        "$.subjects[0].confidence == 0.98"
+      ]
+    }
+  ]
+}

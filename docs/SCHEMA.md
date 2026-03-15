@@ -26,7 +26,7 @@ Stable lines may later use major-only naming if needed, but that is not the only
 
 ## Envelope lines
 
-The current NC formal line uses native payload identity:
+The current NC formal lines use native payload identity:
 
 - `schema_id`
 - `spec_version`
@@ -34,7 +34,7 @@ The current NC formal line uses native payload identity:
 
 Legacy event-envelope fields such as `schema/event_id/event_ts/producer` are not universal requirements in this repository.
 
-## Current NC formal line
+## Current NC interaction baseline
 
 Canonical schema files:
 
@@ -49,11 +49,38 @@ Canonical sample files:
 - `samples/naturalcontrol.interaction_frame.v1.2/minimal.json`
 - `samples/naturalcontrol.interaction_trace_pack.v1.2/minimal.json`
 
-
 ## Current lifecycle/reporting line
 
-Canonical lifecycle/reporting schemas:
+Canonical schema files:
 
 - `schemas/nc/naturalcontrol.lifecycle_ack.v1.schema.json`
 - `schemas/nc/naturalcontrol.lifecycle_progress.v1.schema.json`
 - `schemas/nc/naturalcontrol.lifecycle_result.v1.schema.json`
+
+Canonical sample files:
+
+- `samples/naturalcontrol.lifecycle_ack.v1/minimal.json`
+- `samples/naturalcontrol.lifecycle_progress.v1/minimal.json`
+- `samples/naturalcontrol.lifecycle_result.v1/minimal.json`
+
+## Current estimation line
+
+Canonical schema files:
+
+- `schemas/nc/naturalcontrol.estimation_observation.v1.schema.json`
+- `schemas/nc/naturalcontrol.estimation_prediction.v1.schema.json`
+
+Canonical sample files:
+
+- `samples/naturalcontrol.estimation_observation.v1/minimal.json`
+- `samples/naturalcontrol.estimation_prediction.v1/minimal.json`
+
+## Current actuation line
+
+Canonical schema files:
+
+- `schemas/nc/naturalcontrol.actuation_bundle.v1.schema.json`
+
+Canonical sample files:
+
+- `samples/naturalcontrol.actuation_bundle.v1/minimal.json`

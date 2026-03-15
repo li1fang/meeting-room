@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.estimation_prediction.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.estimation_prediction.v1:shape-ok",
+      "given": "samples/naturalcontrol.estimation_prediction.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.estimation_prediction.v1'",
+        "$.spec_version == '1.0'",
+        "$.source_observation_id == 'obs-001'",
+        "$.horizon_ns != ''",
+        "$.subjects[0].model_ref == 'kalman/basic-v1'"
+      ]
+    }
+  ]
+}

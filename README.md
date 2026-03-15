@@ -2,11 +2,13 @@
 
 Natural Control formal contracts repository.
 
-This repository is the new NC-first contract source of truth.
-It starts with the NC `v1.2` formal draft line and keeps the scope intentionally narrow:
+This repository is the NC-first contract source of truth.
+It starts from the NC `v1.2` formal baseline and then grows in explicit layers:
 
 - interaction request / frame / trace pack
 - lifecycle / reporting line
+- estimation layer
+- actuation layer
 - supporting governance, registry, terminology, samples, and TCK
 
 It does **not** treat legacy AGI-Nutshell NCv3 as the main line.
@@ -14,7 +16,7 @@ Legacy material is referenced only as input for borrowing or migration analysis.
 
 ## Current scope
 
-Current formal line:
+Current formal lines:
 
 - `naturalcontrol.interaction_request.v1.2`
 - `naturalcontrol.interaction_frame.v1.2`
@@ -23,15 +25,21 @@ Current formal line:
 - `naturalcontrol.lifecycle_ack.v1`
 - `naturalcontrol.lifecycle_progress.v1`
 - `naturalcontrol.lifecycle_result.v1`
+- `naturalcontrol.estimation_observation.v1`
+- `naturalcontrol.estimation_prediction.v1`
+- `naturalcontrol.actuation_bundle.v1`
 
-Current scope is **2D interaction baseline** only.
-Out of scope for this first repository version:
+Current stable baseline is still **2D interaction**.
+The newer estimation and actuation lines are draft extensions that intentionally stay narrow.
 
-- 3D control / body-space contracts
-- ballistic prediction
-- gear-control / gamepad / touch actuation contracts
+Out of scope for the current repository version:
+
+- frozen 3D control contracts
+- ballistic prediction standards
+- body-part heatmap standards
 - RL feedback contracts
 - compatibility wrappers for legacy NCv3
+- active NP/PS/TS schema lines
 
 ## Canonical tree
 
@@ -55,19 +63,22 @@ Examples:
 - `naturalcontrol.interaction_request.v1.2`
 - `naturalcontrol.interaction_frame.v1.2`
 
-The NC formal line uses its native top-level identity:
+The NC formal lines use native top-level identity:
 
 - `schema_id`
 - `spec_version`
 - `epoch_ns`
 
-It does not inherit the old universal event envelope.
+They do not inherit the old universal event envelope.
 
 ## Repository status
 
 - NC-first: yes
-- Stable multi-domain SSOT: not yet
-- NP/PS/TS extension slots: reserved, not implemented here in v1
+- Interaction baseline: landed
+- Lifecycle/reporting line: landed
+- Estimation line: landed as draft skeleton
+- Actuation line: landed as draft skeleton
+- NP/PS/TS extension slots: reserved path only
 
 ## Validation
 
@@ -89,6 +100,9 @@ Start with:
 
 - `docs/NC-FORMAL-SCHEMA-v1.2.md`
 - `docs/NC-LIFECYCLE-REPORTING-v1.md`
+- `docs/NC-ESTIMATION-LAYER-v1.md`
+- `docs/NC-ACTUATION-LAYER-v1.md`
+- `docs/FUTURE_DOMAIN_EXPANSION_RULES.md`
 - `docs/ROADMAP_STATUS.md`
 - `docs/NaturalControl_Formal_Terminology_zh_en.md`
 - `docs/AGI_Nutshell_Legacy_Inventory.md`

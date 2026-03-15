@@ -1,0 +1,36 @@
+{
+  "schema_id": "naturalcontrol.estimation_observation.v1",
+  "spec_version": "1.0",
+  "epoch_ns": "1742040000000000000",
+  "observation_id": "obs-001",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-blueclicker-001",
+  "coordinate_space": {
+    "space_kind": "viewport_px",
+    "viewport_w": 1920,
+    "viewport_h": 1080,
+    "dpr": 1
+  },
+  "subjects": [
+    {
+      "subject_id": "target-blue-001",
+      "kind": "target",
+      "confidence": 0.98,
+      "bbox2d": {
+        "x": 760,
+        "y": 180,
+        "w": 64,
+        "h": 64
+      },
+      "velocity": {
+        "x": 2,
+        "y": 0
+      },
+      "acceleration": {
+        "x": 0,
+        "y": 0
+      },
+      "status": "active"
+    }
+  ]
+}

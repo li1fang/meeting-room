@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.actuation_bundle.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.actuation_bundle.v1:shape-ok",
+      "given": "samples/naturalcontrol.actuation_bundle.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.actuation_bundle.v1'",
+        "$.spec_version == '1.0'",
+        "$.surface_kind == 'mouse'",
+        "$.atoms[0].kind == 'pointer_delta'",
+        "$.atoms[1].payload.button == 'left'"
+      ]
+    }
+  ]
+}

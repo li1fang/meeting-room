@@ -34,3 +34,21 @@ naturalcontrol.lifecycle_result.v1:
   trace_id: interaction_id
   throughput_eps: 30
   retention_days: 14
+naturalcontrol.estimation_observation.v1:
+  partition_key: observation_id
+  idempotency_key: observation_id
+  trace_id: interaction_id
+  throughput_eps: 120
+  retention_days: 7
+naturalcontrol.estimation_prediction.v1:
+  partition_key: prediction_id
+  idempotency_key: prediction_id
+  trace_id: interaction_id
+  throughput_eps: 120
+  retention_days: 7
+naturalcontrol.actuation_bundle.v1:
+  partition_key: execution_id
+  idempotency_key: bundle_id
+  trace_id: interaction_id
+  throughput_eps: 60
+  retention_days: 7

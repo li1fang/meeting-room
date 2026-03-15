@@ -3,7 +3,7 @@
 ## Repository stance
 
 This repository is NC-first.
-It is designed to freeze the Natural Control formal line before broader multi-domain expansion.
+It freezes the Natural Control formal lines before broader multi-domain expansion.
 
 ## Naming and versioning
 
@@ -21,20 +21,21 @@ It is designed to freeze the Natural Control formal line before broader multi-do
   - one TCK suite
 - No mirror trees.
 
-## Current mandatory identity for NC formal line
+## Current mandatory identity for NC formal lines
 
-Current NC formal draft payloads must carry:
+Current NC formal payloads must carry:
 
 - `schema_id`
 - `spec_version`
 - `epoch_ns`
 
-They may additionally carry request/trace/frame-specific identifiers, but they do not inherit a universal legacy event envelope.
+They may additionally carry line-specific identifiers, but they do not inherit a universal legacy event envelope.
 
 ## Draft vs stable
 
-Current `v1.2` line is a formal draft, not yet a final frozen universal contract.
-It is stable enough for review and implementation alignment, but not treated as permanent final form across all future domains.
+Current `v1.2` interaction line is a formal draft, not yet a final frozen universal contract.
+The lifecycle, estimation, and actuation lines are also draft lines.
+All are stable enough for review and implementation alignment, but none are yet treated as permanent final form across all future domains.
 
 ## Current repository quality gate
 
@@ -46,13 +47,25 @@ A topic is not considered landed unless all of the following exist and pass:
 - registry entry exists
 - docs are consistent with the actual schema line
 
+## Current landed NC lines
 
-## Current lifecycle/reporting line
+The repository now carries these separate NC lines:
 
-The repository now carries a separate lifecycle/reporting line:
+- interaction baseline
+- lifecycle/reporting line
+- estimation line
+- actuation line
 
-- `naturalcontrol.lifecycle_ack.v1`
-- `naturalcontrol.lifecycle_progress.v1`
-- `naturalcontrol.lifecycle_result.v1`
+These lines must stay separated.
+No line may redefine another line's ownership just to avoid creating a new schema.
 
-These topics are separate from the interaction baseline and must not be used to redefine request/frame/trace semantics.
+## Future domain expansion rule
+
+Future non-NC domains may land here later, but only under these conditions:
+
+- they use the same root canonical tree
+- they bring a boundary document
+- they bring a real schema, sample, and TCK
+- they update registry and repository docs together
+
+Reserved domains do not justify fake placeholder topics.

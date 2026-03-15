@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.estimation_observation.v1.schema.json",
+  "title": "NaturalControl Estimation Observation v1",
+  "description": "Estimation-layer payload for current observed subject state. This line formalizes observation without redefining interaction or actuation semantics.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "observation_id",
+    "coordinate_space",
+    "subjects"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.estimation_observation.v1"
+    },
+    "spec_version": {
+      "const": "1.0"
+    },
+    "epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "observation_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "interaction_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "coordinate_space": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/coordinateSpace"
+    },
+    "subjects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/observedSubject"
+      }
+    },
+    "meta": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+    }
+  },
+  "$defs": {
+    "vector3": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bodyKeypoint": {
+      "type": "object",
+      "required": [
+        "name",
+        "point2d",
+        "confidence"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        },
+        "point2d": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "confidence": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability"
+        }
+      },
+      "additionalProperties": false
+    },
+    "observedSubject": {
+      "type": "object",
+      "required": [
+        "subject_id",
+        "kind",
+        "confidence"
+      ],
+      "properties": {
+        "subject_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "target",
+            "cursor",
+            "body_part",
+            "object",
+            "custom"
+          ]
+        },
+        "confidence": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/probability"
+        },
+        "bbox2d": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/bbox"
+        },
+        "point2d": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "position3d": {
+          "$ref": "#/$defs/vector3"
+        },
+        "velocity": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "acceleration": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "body_keypoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/bodyKeypoint"
+          }
+        },
+        "status": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/targetStatus"
+        },
+        "meta": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/metaObject"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "bbox2d"
+          ]
+        },
+        {
+          "required": [
+            "point2d"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

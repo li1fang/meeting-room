@@ -11,14 +11,23 @@ This document records what was borrowed from AGI-Nutshell and what was intention
 - governance and schema notes as first-class docs
 - retention / throughput / partition-key awareness
 
+### Borrowed into current landed lines
+
+- lifecycle/reporting line
+  - borrowed the idea that admission, in-flight progress, and terminal state deserve a separate line
+  - not borrowed as old topic names or old envelopes
+- estimation line
+  - borrowed the idea that richer subject-state expression belongs in its own layer
+  - not borrowed as old perception topic shapes
+- actuation line
+  - borrowed the idea that execution bundles belong in their own layer
+  - not borrowed as `nc.control.bundle.v1` compatibility
+
 ### Possible future candidates
 
-- `nc.control.bundle.v1`
-  - useful as an actuation / execution bundle reference
-  - not suitable as request semantics
 - `np.perception.frame.v1`
   - useful as a future estimation / richer target-state reference
-  - not part of current NC v1.2 baseline
+  - not part of current NC baseline
 
 ## Explicitly rejected from the NC formal line
 
@@ -28,6 +37,7 @@ This document records what was borrowed from AGI-Nutshell and what was intention
 - `naturalcontrol.atoms.v3`
 
 Reason:
+
 - these model `tap/swipe/text/key` style automation
 - they do not model Natural Control request / frame / trace semantics
 
@@ -39,20 +49,23 @@ Reason:
 - `producer`
 
 Reason:
+
 - acceptable for old event topics
-- not appropriate as the universal base for the NC formal line
+- not appropriate as the universal base for the NC formal lines
 
 ### Mirror trees
 
 - `domains/**` + `schemas/**` dual-tree layout
 
 Reason:
+
 - duplicates drift
 - canonical placement becomes ambiguous
 
 ### Weak SARF zone shape
 
 Reason:
+
 - too weak for target/safe/reversible/forbidden policy modeling
 - insufficient for NC intelligent-miss contract design
 
@@ -64,6 +77,7 @@ Reason:
 - `naturalcontrol.atoms.v3`
 
 Current value:
+
 - not part of current Natural Control formal line
 - may only be useful later if a separate mobile / touch automation line is split out
 
@@ -74,21 +88,24 @@ Current value:
 - `naturalcontrol.result.v3`
 
 Current value:
+
 - not interaction semantics
-- may still be useful later as orchestration or reporting contracts
+- useful only as historical motivation for a separate lifecycle/reporting line
 
 ### Actuation candidate
 
 - `nc.control.bundle.v1`
 
 Current value:
-- useful reference for future execution/actuation layer
-- intentionally excluded from current request/frame/trace baseline
+
+- useful reference for execution/actuation layering
+- intentionally not used as a compatibility target
 
 ### Estimation reference
 
 - `np.perception.frame.v1`
 
 Current value:
-- useful reference for future richer target-state or 3D estimation work
-- intentionally excluded from current NC-first repository baseline
+
+- useful reference for richer target-state or 3D estimation work
+- intentionally excluded from the current NC-first repository baseline
