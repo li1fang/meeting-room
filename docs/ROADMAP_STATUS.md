@@ -1,10 +1,24 @@
 # Roadmap Status
 
-Current mainline view of the formal work tracked in GitHub issues.
+Current mainline view of the formal work tracked in the repository.
 
 ## Current status
 
-### #1 lifecycle/reporting line
+### Interaction baseline
+
+Status: landed
+
+What now exists:
+
+- `naturalcontrol.interaction_request.v1.2`
+- `naturalcontrol.interaction_frame.v1.2`
+- `naturalcontrol.interaction_trace_pack.v1.2`
+
+Interpretation:
+
+The repository has a stable 2D interaction baseline for request, frame, and trace semantics.
+
+### Lifecycle/reporting line
 
 Status: landed
 
@@ -13,17 +27,14 @@ What now exists:
 - `naturalcontrol.lifecycle_ack.v1`
 - `naturalcontrol.lifecycle_progress.v1`
 - `naturalcontrol.lifecycle_result.v1`
-- minimal samples
-- minimal TCK suites
-- formal design note
 
 Interpretation:
 
-The interaction baseline and lifecycle/reporting semantics are formally separated in the repository.
+Interaction semantics and reporting semantics stay separated.
 
-### #5 estimation v1.1 line
+### Estimation line
 
-Status: landed as retained reference draft
+Status: landed with `v1.2` as current recommended draft
 
 What now exists:
 
@@ -31,84 +42,31 @@ What now exists:
 - `naturalcontrol.estimation_prediction.v1`
 - `naturalcontrol.estimation_observation.v1.1`
 - `naturalcontrol.estimation_prediction.v1.1`
+- `naturalcontrol.estimation_observation.v1.2`
+- `naturalcontrol.estimation_prediction.v1.2`
 
 Interpretation:
 
-The repository preserves the first richer estimation draft line as reference instead of mutating it in place.
+The repository now has a tightened estimation line that freezes structured uncertainty and optional 3D expression while keeping earlier drafts as seed/reference lines.
 
-### #6 body keypoint catalog
+### Actuation handoff line
 
-Status: landed as document-level canonical catalog
-
-What now exists:
-
-- `docs/NC-BODY-KEYPOINT-CATALOG-v1.md`
-- terminology aligned to the initial canonical keypoint set
-
-Interpretation:
-
-The repository has a small canonical naming surface for body-keypoint usage inside estimation drafts.
-
-### #7 actuation v1.1 + receipt line
-
-Status: landed as retained bundle draft plus broad receipt seed
+Status: landed as current recommended handoff line
 
 What now exists:
 
 - `naturalcontrol.actuation_bundle.v1`
 - `naturalcontrol.actuation_bundle.v1.1`
+- `naturalcontrol.actuation_adapter_bundle.v1`
+- `naturalcontrol.actuation_injector_batch.v1`
 - `naturalcontrol.actuation_receipt.v1`
-
-Interpretation:
-
-The repository preserves the first richer actuation bundle line and the broad receipt seed instead of mutating them in place.
-
-### #8 estimation v1.2 line
-
-Status: landed as current recommended draft
-
-What now exists:
-
-- `naturalcontrol.estimation_observation.v1.2`
-- `naturalcontrol.estimation_prediction.v1.2`
-- minimal samples
-- minimal TCK suites
-- formal design note for `v1.2`
-
-Interpretation:
-
-The repository now has a tighter recommended estimation line that freezes structured uncertainty and optional 3D expression without reopening the 3D / ballistic mainline.
-
-### #9 uncertainty + optional 3D formalization
-
-Status: landed inside estimation `v1.2`
-
-What now exists:
-
-- uncertainty models with explicit 2D/3D region shapes
-- confidence-level field in prediction uncertainty
-- self-contained optional 3D geometry and kinematics objects
-
-Interpretation:
-
-The repository can now express richer prediction confidence and optional 3D state in a controlled way instead of leaving those payloads loose.
-
-### #10 actuation execution receipt split
-
-Status: landed as current recommended execution-receipt line
-
-What now exists:
-
 - `naturalcontrol.actuation_adapter_receipt.v1`
 - `naturalcontrol.actuation_injector_receipt.v1`
 - `naturalcontrol.actuation_device_receipt.v1`
-- minimal samples
-- minimal TCK suites
-- execution receipt design note
 
 Interpretation:
 
-The repository now separates adapter, injector, and device-facing execution receipts instead of collapsing all execution ownership into one generic receipt.
+The repository now makes the handoff between adapter and injector explicit instead of jumping directly from bundle semantics to receipt semantics.
 
 ### Reserved domain expansion path
 
@@ -122,7 +80,20 @@ What now exists:
 
 Interpretation:
 
-The repository stays NC-first while making future NP/PS/TS growth explicit and disciplined.
+The repository stays NC-first while keeping future NP/PS/TS growth disciplined.
+
+### Pause point
+
+Status: active
+
+What now exists:
+
+- `docs/PAUSE_POINT_HANDOFF_v1.md`
+- handoff line landed before any deeper protocol work
+
+Interpretation:
+
+The repository now has a defined stopping point where adapter/injector production work can begin without forcing premature backend-specific contract design.
 
 ## Mainline view
 
@@ -131,15 +102,14 @@ The current mainline of `meeting-room` is now:
 1. NC interaction baseline (`request/frame/trace`)
 2. NC lifecycle/reporting line
 3. NC estimation line (`v1.2` recommended, `v1.1` retained as reference, `v1` retained as skeleton seed)
-4. NC actuation line (`v1.1` bundle recommended, split execution receipts recommended, `v1` retained as skeleton seed)
+4. NC actuation line (`v1.1` bundle recommended, handoff line landed, split execution receipts recommended)
 5. reserved multi-domain expansion path
+6. active pause point after handoff landing
 
 ## Current recommendation
 
-Do not widen scope to 3D, ballistic, or active non-NC domain schemas before the following are stable:
+Do not widen scope beyond the current handoff pause point until at least one production pull exists from:
 
-- interaction baseline examples
-- lifecycle/reporting semantics
-- estimation v1.2 uncertainty and optional 3D semantics
-- actuation execution receipt ownership boundaries
-- reserved-domain governance rules
+- a real adapter needing richer translation semantics
+- a real injector needing explicit packet/protocol contracts
+- a cross-team integration that exposes a missing minimum semantic in the current handoff or receipt chain

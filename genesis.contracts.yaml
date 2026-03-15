@@ -110,6 +110,20 @@ domains:
     trace_id: interaction_id
     throughput_eps: 120
     retention_days: 7
+  - name: naturalcontrol.actuation_adapter_bundle.v1
+    status: draft
+    partition_key: execution_id
+    idempotency_key: adapter_bundle_id
+    trace_id: interaction_id
+    throughput_eps: 120
+    retention_days: 7
+  - name: naturalcontrol.actuation_injector_batch.v1
+    status: draft
+    partition_key: execution_id
+    idempotency_key: injector_batch_id
+    trace_id: interaction_id
+    throughput_eps: 120
+    retention_days: 7
   - name: naturalcontrol.actuation_adapter_receipt.v1
     status: draft
     partition_key: execution_id

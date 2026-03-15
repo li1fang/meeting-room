@@ -481,3 +481,45 @@ What it means:
 解释：
 - 指 estimation payload 中可选使用的结构化三维几何或运动学表达。
 - 它目前还不等于完整的 3D 世界/身体空间标准。
+
+### `handoff line` / `交接线`
+
+What it means:
+- A contract line that exists to describe what one execution owner hands to the next.
+- In the current repository it sits between actuation bundle semantics and execution receipts.
+
+解释：
+- 用来描述一个执行拥有者把什么内容交给下一个拥有者的契约线。
+- 在当前仓中，它位于 actuation bundle 语义和 execution receipts 之间。
+
+### `adapter bundle` / `适配器束`
+
+What it means:
+- The adapter-owned translated bundle produced after an actuation bundle is accepted and translated.
+
+解释：
+- 指 actuation bundle 被接受并翻译后形成的 adapter-owned translated bundle。
+
+### `injector batch` / `注入批次`
+
+What it means:
+- The injector-owned emission batch prepared for backend-side execution.
+
+解释：
+- 指为 backend 侧执行准备好的 injector-owned emission batch。
+
+### `translated bundle` / `翻译后束`
+
+What it means:
+- A bundle whose ownership and payload semantics have already been adapted for the next execution layer.
+
+解释：
+- 指其所有权和 payload 语义已经被调整为适合下一执行层消费的 bundle。
+
+### `emission batch` / `发射批次`
+
+What it means:
+- A batch of emission-ready operations owned by an injector/backend layer.
+
+解释：
+- 指由 injector/backend 层持有的一批已经准备发出的操作。

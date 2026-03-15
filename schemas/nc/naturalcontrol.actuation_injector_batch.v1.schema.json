@@ -1,0 +1,419 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "naturalcontrol.actuation_injector_batch.v1.schema.json",
+  "title": "NaturalControl Actuation Injector Batch v1",
+  "description": "Injector-owned emission batch handed from an injector/backend toward the execution edge.",
+  "type": "object",
+  "required": [
+    "schema_id",
+    "spec_version",
+    "epoch_ns",
+    "injector_batch_id",
+    "adapter_bundle_id",
+    "bundle_id",
+    "request_id",
+    "interaction_id",
+    "execution_id",
+    "surface_kind",
+    "injector_ref",
+    "backend_kind",
+    "time_basis",
+    "ops"
+  ],
+  "properties": {
+    "schema_id": {
+      "const": "naturalcontrol.actuation_injector_batch.v1"
+    },
+    "spec_version": {
+      "const": "1.0"
+    },
+    "epoch_ns": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+    },
+    "injector_batch_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "adapter_bundle_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "bundle_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "request_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "interaction_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "execution_id": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+    },
+    "surface_kind": {
+      "type": "string",
+      "enum": [
+        "mouse",
+        "touch",
+        "gamepad",
+        "gear",
+        "unknown"
+      ]
+    },
+    "injector_ref": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+    },
+    "backend_kind": {
+      "type": "string",
+      "enum": [
+        "uinput",
+        "hidapi",
+        "virtual_touch",
+        "custom"
+      ]
+    },
+    "time_basis": {
+      "type": "string",
+      "enum": [
+        "relative_to_batch_epoch_ns",
+        "relative_to_interaction_epoch_ns"
+      ]
+    },
+    "mapping_ref": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+    },
+    "notes": {
+      "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+    },
+    "ops": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/op"
+      }
+    }
+  },
+  "$defs": {
+    "channel": {
+      "type": "string",
+      "enum": [
+        "pointer",
+        "button",
+        "touch",
+        "stick",
+        "gear",
+        "timing"
+      ]
+    },
+    "payloadPointerPacket": {
+      "type": "object",
+      "required": [
+        "dx",
+        "dy"
+      ],
+      "properties": {
+        "dx": {
+          "type": "number"
+        },
+        "dy": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "payloadButtonPacket": {
+      "type": "object",
+      "required": [
+        "button",
+        "state"
+      ],
+      "properties": {
+        "button": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right",
+            "middle",
+            "back",
+            "forward"
+          ]
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "press",
+            "release"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "payloadTouchPacket": {
+      "type": "object",
+      "required": [
+        "contact_id",
+        "phase",
+        "position"
+      ],
+      "properties": {
+        "contact_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "down",
+            "move",
+            "up",
+            "cancel"
+          ]
+        },
+        "position": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        },
+        "pressure": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "payloadStickPacket": {
+      "type": "object",
+      "required": [
+        "stick",
+        "vector"
+      ],
+      "properties": {
+        "stick": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right",
+            "unknown"
+          ]
+        },
+        "vector": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/vector2"
+        }
+      },
+      "additionalProperties": false
+    },
+    "payloadWait": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "payloadGearPacket": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "angular",
+            "mixed",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "op": {
+      "type": "object",
+      "required": [
+        "op_id",
+        "offset_ns",
+        "duration_ns",
+        "channel",
+        "kind",
+        "payload"
+      ],
+      "properties": {
+        "op_id": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/identifier"
+        },
+        "offset_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "duration_ns": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nsValue"
+        },
+        "channel": {
+          "$ref": "#/$defs/channel"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "pointer_packet",
+            "button_packet",
+            "touch_packet",
+            "stick_packet",
+            "wait",
+            "gear_packet"
+          ]
+        },
+        "payload": {
+          "type": "object"
+        },
+        "mapping_ref": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        },
+        "source_segment": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        },
+        "notes": {
+          "$ref": "naturalcontrol.common.v1.2.schema.json#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "pointer_packet"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "channel": {
+                "const": "pointer"
+              },
+              "payload": {
+                "$ref": "#/$defs/payloadPointerPacket"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "button_packet"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "channel": {
+                "const": "button"
+              },
+              "payload": {
+                "$ref": "#/$defs/payloadButtonPacket"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "touch_packet"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "channel": {
+                "const": "touch"
+              },
+              "payload": {
+                "$ref": "#/$defs/payloadTouchPacket"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "stick_packet"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "channel": {
+                "const": "stick"
+              },
+              "payload": {
+                "$ref": "#/$defs/payloadStickPacket"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "wait"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "channel": {
+                "const": "timing"
+              },
+              "payload": {
+                "$ref": "#/$defs/payloadWait"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "gear_packet"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "channel": {
+                "const": "gear"
+              },
+              "payload": {
+                "$ref": "#/$defs/payloadGearPacket"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

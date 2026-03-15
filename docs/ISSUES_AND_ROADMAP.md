@@ -1,11 +1,11 @@
-# Issues and Roadmap (v3)
+# Issues and Roadmap (v4)
 
 ## Current repository issues
 
 ### 1. Interaction baseline is still the only stable baseline
 
 Current `v1.2` interaction line is the most mature contract line in the repository.
-Other lines now exist, but they are still draft extensions.
+Other lines now exist, but they remain draft extensions layered on top of it.
 
 ### 2. Estimation is now useful, but still intentionally bounded
 
@@ -31,12 +31,14 @@ What is still missing later:
 - full 3D world/body-space standards
 - richer uncertainty standards beyond the current small model
 
-### 3. Actuation now has explicit execution receipt ownership
+### 3. Actuation now has explicit handoff and execution receipt ownership
 
 The repository now carries:
 
 - `naturalcontrol.actuation_bundle.v1`
 - `naturalcontrol.actuation_bundle.v1.1`
+- `naturalcontrol.actuation_adapter_bundle.v1`
+- `naturalcontrol.actuation_injector_batch.v1`
 - `naturalcontrol.actuation_receipt.v1`
 - `naturalcontrol.actuation_adapter_receipt.v1`
 - `naturalcontrol.actuation_injector_receipt.v1`
@@ -45,6 +47,8 @@ The repository now carries:
 Current recommendation:
 
 - `naturalcontrol.actuation_bundle.v1.1`
+- `naturalcontrol.actuation_adapter_bundle.v1`
+- `naturalcontrol.actuation_injector_batch.v1`
 - `naturalcontrol.actuation_adapter_receipt.v1`
 - `naturalcontrol.actuation_injector_receipt.v1`
 - `naturalcontrol.actuation_device_receipt.v1`
@@ -52,9 +56,9 @@ Current recommendation:
 What is still missing later:
 
 - adapter-specific protocol schemas
-- injector-specific packet schemas
+- injector packet grammar
 - richer touch/gamepad/gear vocabularies
-- device-specific low-level protocol schemas
+- device-native feedback/event schemas
 
 ### 4. NP / PS / TS remain reserved only
 
@@ -84,7 +88,7 @@ Status: landed
 - `naturalcontrol.lifecycle_progress.v1`
 - `naturalcontrol.lifecycle_result.v1`
 
-### Phase 3 — Land estimation seed and early draft lines
+### Phase 3 — Land estimation seed and draft lines
 
 Status: landed
 
@@ -98,22 +102,12 @@ Reference draft:
 - `naturalcontrol.estimation_observation.v1.1`
 - `naturalcontrol.estimation_prediction.v1.1`
 
-### Phase 4 — Land estimation v1.2 tightening
-
-Status: landed
-
 Current recommended draft:
 
 - `naturalcontrol.estimation_observation.v1.2`
 - `naturalcontrol.estimation_prediction.v1.2`
 
-Focused gains:
-
-- structured uncertainty
-- confidence-level field
-- optional 3D expression tightened into structured objects
-
-### Phase 5 — Land actuation seed and bundle draft lines
+### Phase 4 — Land actuation seed, handoff, and receipt lines
 
 Status: landed
 
@@ -121,14 +115,11 @@ Seed skeleton:
 
 - `naturalcontrol.actuation_bundle.v1`
 
-Reference draft:
+Current recommended bundle and handoff line:
 
 - `naturalcontrol.actuation_bundle.v1.1`
-- `naturalcontrol.actuation_receipt.v1`
-
-### Phase 6 — Land execution receipt split
-
-Status: landed
+- `naturalcontrol.actuation_adapter_bundle.v1`
+- `naturalcontrol.actuation_injector_batch.v1`
 
 Current recommended execution receipt line:
 
@@ -136,13 +127,17 @@ Current recommended execution receipt line:
 - `naturalcontrol.actuation_injector_receipt.v1`
 - `naturalcontrol.actuation_device_receipt.v1`
 
-### Phase 7 — Freeze body keypoint catalog
+Broad retained receipt seed:
+
+- `naturalcontrol.actuation_receipt.v1`
+
+### Phase 5 — Freeze body keypoint catalog
 
 Status: landed as document-level canonical catalog
 
 - `docs/NC-BODY-KEYPOINT-CATALOG-v1.md`
 
-### Phase 8 — Freeze reserved domain expansion rules
+### Phase 6 — Freeze reserved domain expansion rules
 
 Status: landed as governance rule
 
@@ -150,11 +145,20 @@ Status: landed as governance rule
 - minimum landing requirements
 - NC-first repository identity preserved
 
-### Phase 9 — Later extensions
+### Phase 7 — Pause at handoff line
+
+Status: active
+
+- `docs/PAUSE_POINT_HANDOFF_v1.md`
+- no deeper protocol work by default
+
+### Phase 8 — Later extensions
 
 Future work may formalize:
 
+- adapter-specific protocol schemas
+- injector packet grammar
+- device-native feedback/event lines
 - richer 3D and body-space semantics
 - ballistic and horizon-specific prediction models
-- adapter/injector-specific protocol schemas
 - active NP / PS / TS schema lines

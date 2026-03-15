@@ -20,7 +20,7 @@ Examples:
 
 - `naturalcontrol.interaction_request.v1.2`
 - `naturalcontrol.estimation_observation.v1.2`
-- `naturalcontrol.actuation_adapter_receipt.v1`
+- `naturalcontrol.actuation_adapter_bundle.v1`
 
 Stable lines may later use major-only naming if needed, but that is not the only allowed form here.
 
@@ -94,6 +94,8 @@ Seed skeleton schema file:
 Recommended draft schema files:
 
 - `schemas/nc/naturalcontrol.actuation_bundle.v1.1.schema.json`
+- `schemas/nc/naturalcontrol.actuation_adapter_bundle.v1.schema.json`
+- `schemas/nc/naturalcontrol.actuation_injector_batch.v1.schema.json`
 - `schemas/nc/naturalcontrol.actuation_adapter_receipt.v1.schema.json`
 - `schemas/nc/naturalcontrol.actuation_injector_receipt.v1.schema.json`
 - `schemas/nc/naturalcontrol.actuation_device_receipt.v1.schema.json`
@@ -105,6 +107,8 @@ Reference receipt schema retained:
 Canonical sample files for the recommended line:
 
 - `samples/naturalcontrol.actuation_bundle.v1.1/minimal.json`
+- `samples/naturalcontrol.actuation_adapter_bundle.v1/minimal.json`
+- `samples/naturalcontrol.actuation_injector_batch.v1/minimal.json`
 - `samples/naturalcontrol.actuation_adapter_receipt.v1/minimal.json`
 - `samples/naturalcontrol.actuation_injector_receipt.v1/minimal.json`
 - `samples/naturalcontrol.actuation_device_receipt.v1/minimal.json`

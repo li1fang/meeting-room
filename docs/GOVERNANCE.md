@@ -53,6 +53,7 @@ That is why this repository keeps:
 - `naturalcontrol.estimation_observation.v1.2` and `naturalcontrol.estimation_prediction.v1.2` as the current recommended draft estimation line
 - `naturalcontrol.actuation_bundle.v1` as a skeleton seed
 - `naturalcontrol.actuation_bundle.v1.1` as the current recommended bundle line
+- `naturalcontrol.actuation_adapter_bundle.v1` and `naturalcontrol.actuation_injector_batch.v1` as the current recommended handoff line
 - `naturalcontrol.actuation_receipt.v1` as a broad retained receipt seed
 - `naturalcontrol.actuation_adapter_receipt.v1`, `naturalcontrol.actuation_injector_receipt.v1`, and `naturalcontrol.actuation_device_receipt.v1` as the current recommended execution-receipt line
 

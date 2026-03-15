@@ -34,6 +34,8 @@ Current formal topics in the repository:
 - `naturalcontrol.actuation_bundle.v1`
 - `naturalcontrol.actuation_bundle.v1.1`
 - `naturalcontrol.actuation_receipt.v1`
+- `naturalcontrol.actuation_adapter_bundle.v1`
+- `naturalcontrol.actuation_injector_batch.v1`
 - `naturalcontrol.actuation_adapter_receipt.v1`
 - `naturalcontrol.actuation_injector_receipt.v1`
 - `naturalcontrol.actuation_device_receipt.v1`
@@ -44,7 +46,7 @@ The richer estimation and actuation lines are draft extensions layered on top of
 Current recommended draft lines:
 
 - estimation: `naturalcontrol.estimation_observation.v1.2` + `naturalcontrol.estimation_prediction.v1.2`
-- actuation: `naturalcontrol.actuation_bundle.v1.1` + execution receipts (`naturalcontrol.actuation_adapter_receipt.v1`, `naturalcontrol.actuation_injector_receipt.v1`, `naturalcontrol.actuation_device_receipt.v1`)
+- actuation: `naturalcontrol.actuation_bundle.v1.1` + handoff line (`naturalcontrol.actuation_adapter_bundle.v1`, `naturalcontrol.actuation_injector_batch.v1`) + execution receipts (`naturalcontrol.actuation_adapter_receipt.v1`, `naturalcontrol.actuation_injector_receipt.v1`, `naturalcontrol.actuation_device_receipt.v1`)
 
 Seed skeleton lines retained for reference:
 
@@ -98,7 +100,7 @@ They do not inherit the old universal event envelope.
 - Interaction baseline: landed
 - Lifecycle/reporting line: landed
 - Estimation line: `v1` skeleton retained, `v1.2` recommended draft landed
-- Actuation line: `v1` skeleton retained, `v1.1` bundle + execution receipts landed
+- Actuation line: `v1` skeleton retained, `v1.1` bundle + handoff line + execution receipts landed
 - NP/PS/TS extension slots: reserved path only
 
 ## Validation
@@ -127,6 +129,7 @@ Start with:
 - `docs/NC-BODY-KEYPOINT-CATALOG-v1.md`
 - `docs/NC-ACTUATION-LAYER-v1.md`
 - `docs/NC-ACTUATION-LAYER-v1.1.md`
+- `docs/NC-ACTUATION-HANDOFF-v1.md`
 - `docs/NC-ACTUATION-EXECUTION-RECEIPTS-v1.md`
 - `docs/FUTURE_DOMAIN_EXPANSION_RULES.md`
 - `docs/ROADMAP_STATUS.md`
@@ -136,4 +139,5 @@ Start with:
 - `docs/ISSUES_AND_ROADMAP.md`
 - `docs/SCHEMA.md`
 - `docs/GOVERNANCE.md`
+- `docs/PAUSE_POINT_HANDOFF_v1.md`
 - `CONTRIBUTING.md`

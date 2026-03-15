@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.actuation_injector_batch.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.actuation_injector_batch.v1:shape-ok",
+      "given": "samples/naturalcontrol.actuation_injector_batch.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.actuation_injector_batch.v1'",
+        "$.spec_version == '1.0'",
+        "$.adapter_bundle_id == 'adapter-bundle-001'",
+        "$.backend_kind == 'uinput'",
+        "$.ops[0].kind == 'pointer_packet'"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "suite": "L0:naturalcontrol.actuation_adapter_bundle.v1:shape",
+  "cases": [
+    {
+      "name": "L0:naturalcontrol.actuation_adapter_bundle.v1:shape-ok",
+      "given": "samples/naturalcontrol.actuation_adapter_bundle.v1/minimal.json",
+      "assert_jsonpath": [
+        "$.schema_id == 'naturalcontrol.actuation_adapter_bundle.v1'",
+        "$.spec_version == '1.0'",
+        "$.source_bundle_ref == 'naturalcontrol.actuation_bundle.v1.1#bundle-011'",
+        "$.items[0].channel == 'pointer'",
+        "$.items[0].kind == 'pointer_delta'"
+      ]
+    }
+  ]
+}

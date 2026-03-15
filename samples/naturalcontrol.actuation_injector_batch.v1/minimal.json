@@ -1,0 +1,42 @@
+{
+  "schema_id": "naturalcontrol.actuation_injector_batch.v1",
+  "spec_version": "1.0",
+  "epoch_ns": "1742070000011000000",
+  "injector_batch_id": "injector-batch-001",
+  "adapter_bundle_id": "adapter-bundle-001",
+  "bundle_id": "bundle-011",
+  "request_id": "req-click-001",
+  "interaction_id": "interaction-blueclicker-001",
+  "execution_id": "exec-001",
+  "surface_kind": "mouse",
+  "injector_ref": "injector/uinput-main",
+  "backend_kind": "uinput",
+  "time_basis": "relative_to_batch_epoch_ns",
+  "mapping_ref": "mapping/uinput-default-v1",
+  "ops": [
+    {
+      "op_id": "injector-op-001",
+      "offset_ns": "0",
+      "duration_ns": "8000000",
+      "channel": "pointer",
+      "kind": "pointer_packet",
+      "payload": {
+        "dx": 18,
+        "dy": -4
+      },
+      "source_segment": "segment-001"
+    },
+    {
+      "op_id": "injector-op-002",
+      "offset_ns": "8000000",
+      "duration_ns": "1000000",
+      "channel": "button",
+      "kind": "button_packet",
+      "payload": {
+        "button": "left",
+        "state": "press"
+      },
+      "source_segment": "segment-001"
+    }
+  ]
+}
